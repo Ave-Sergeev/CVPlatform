@@ -1,6 +1,6 @@
 import auth.AuthService
 import http.HTTPServer
-import service.db.DBService
+import storage.db.ProfileRepository
 import zio.Scope
 
 object Layers {
@@ -11,5 +11,5 @@ object Layers {
     runtime >+>
       AuthService.live >+>
       HTTPServer.live >+>
-      DBService.live
+      ProfileRepository.live
 }

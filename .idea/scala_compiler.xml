@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="certverifyplatform_194" />
-    <profile name="sbt 2" modules="CertVerificationPlatform">
+    <profile name="sbt 2" modules="CertVerificationPlatform,CertVerifyPlatform">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />

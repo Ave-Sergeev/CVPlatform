@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CertVerificationPlatform.iml" filepath="$PROJECT_DIR$/.idea/modules/CertVerificationPlatform.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CertVerificationPlatform-build.iml" filepath="$PROJECT_DIR$/.idea/modules/CertVerificationPlatform-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CertVerifyPlatform.iml" filepath="$PROJECT_DIR$/.idea/modules/CertVerifyPlatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CertVerifyPlatform-build.iml" filepath="$PROJECT_DIR$/.idea/modules/CertVerifyPlatform-build.iml" />
     </modules>
   </component>
 </project>

@@ -1,15 +1,16 @@
 package http.api
 
 import auth.AuthService
-import service.db.DBService
+import http.handlers.ExceptionHandler.exceptionHandler
 import service.profile.ProfileService
+import storage.db.ProfileRepository
 import zio.http.Middleware._
 import zio.http._
 
 import java.util.UUID
 
 object Profile {
-  def routes: HttpApp[AuthService with DBService] =
+  def routes: HttpApp[AuthService with ProfileRepository] =
     Routes(
       Method.GET / "profile" -> handler {
         ProfileService.getAllProfiles
@@ -27,6 +28,6 @@ object Profile {
         ProfileService.deleteProfileById(id)
       }
     )
-      .handleError(err => Response.badRequest(err.getMessage))
+      .handleError(exceptionHandler)
       .toHttpApp @@ customAuthZIO(AuthService.validateAuth)
 }

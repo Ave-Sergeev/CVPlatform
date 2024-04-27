@@ -1,4 +1,4 @@
-package service.db
+package storage.db
 
 import service.Model.Profile
 import zio.macros.accessible
@@ -7,7 +7,7 @@ import zio.{Task, TaskLayer}
 import java.util.UUID
 
 @accessible
-trait DBService {
+trait ProfileRepository {
   def getAll: Task[List[Profile]]
   def getById(id: UUID): Task[Profile]
   def insert(profile: Profile): Task[UUID]
@@ -15,6 +15,6 @@ trait DBService {
   def deleteById(id: UUID): Task[Unit]
 }
 
-object DBService {
-  val live: TaskLayer[DBService] = DBServiceLive.layer
+object ProfileRepository {
+  val live: TaskLayer[ProfileRepository] = ProfileRepositoryLive.layer
 }

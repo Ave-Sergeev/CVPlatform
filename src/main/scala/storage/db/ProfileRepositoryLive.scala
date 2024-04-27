@@ -1,4 +1,4 @@
-package service.db
+package storage.db
 
 import io.getquill.{PostgresZioJdbcContext, SnakeCase}
 import service.Model.Profile
@@ -8,7 +8,7 @@ import zio.{Task, TaskLayer, ZLayer}
 import java.util.UUID
 import javax.sql.DataSource
 
-case class DBServiceLive(ds: DataSource) extends DBService {
+case class ProfileRepositoryLive(ds: DataSource) extends ProfileRepository {
 
   private val ctx = new PostgresZioJdbcContext(SnakeCase)
 
@@ -63,6 +63,7 @@ case class DBServiceLive(ds: DataSource) extends DBService {
       .provide(dsLayer)
 }
 
-object DBServiceLive {
-  def layer: TaskLayer[DBService] = DB.live >>> ZLayer.fromFunction[DataSource => DBServiceLive](ds => DBServiceLive(ds))
+object ProfileRepositoryLive {
+  def layer: TaskLayer[ProfileRepository] =
+    DB.live >>> ZLayer.fromFunction[DataSource => ProfileRepositoryLive](ds => ProfileRepositoryLive(ds))
 }
