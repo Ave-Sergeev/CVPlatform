@@ -1,0 +1,6 @@
+[0m[[0m[0mdebug[0m] [0m[0m[zinc] IncrementalCompile -----------[0m
+[0m[[0m[0mdebug[0m] [0m[0mIncrementalCompile.incrementalCompile[0m
+[0m[[0m[0mdebug[0m] [0m[0mprevious = Stamps for: 49 products, 14 sources, 17 libraries[0m
+[0m[[0m[0mdebug[0m] [0m[0mcurrent source = Set(${BASE}/src/main/scala/http/api/Profile.scala, ${BASE}/src/main/scala/auth/AuthServiceLive.scala, ${BASE}/src/main/scala/http/HTTPServer.scala, ${BASE}/src/main/scala/service/db/DBService.scala, ${BASE}/src/main/scala/service/db/DBServiceLive.scala, ${BASE}/src/main/scala/Layers.scala, ${BASE}/src/main/scala/Main.scala, ${BASE}/src/main/scala/util/package.scala, ${BASE}/src/main/scala/http/api/Health.scala, ${BASE}/src/main/scala/config/AppConfig.scala, ${BASE}/src/main/scala/auth/AuthService.scala, ${BASE}/src/main/scala/storage/DB.scala, ${BASE}/src/main/scala/service/Model.scala, ${BASE}/src/main/scala/service/profile/ProfileService.scala)[0m
+[0m[[0m[0mdebug[0m] [0m[0m> initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(), unmodified = ...),Set(),Set(),API Changes: Set())[0m
+[0m[[0m[0mdebug[0m] [0m[0mNo changes[0m

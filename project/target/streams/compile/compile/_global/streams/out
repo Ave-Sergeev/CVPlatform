@@ -1,0 +1,7 @@
+[error] /Users/andreilunev/WorkProject/gRPCtoHTTP/project/Dependencies.scala:32:11: identifier expected but ',' found.
+[error]     GRPC. ,
+[error]           ^
+[error] /Users/andreilunev/WorkProject/gRPCtoHTTP/project/Dependencies.scala:34:3: identifier expected but ')' found.
+[error]   )
+[error]   ^
+[error] two errors found
