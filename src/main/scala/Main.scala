@@ -1,4 +1,3 @@
-
 import config.AppConfig
 import http.HTTPServer
 import zio.Console.printLine
@@ -16,8 +15,8 @@ object Main extends ZIOAppDefault {
 
   private val program = for {
     config <- AppConfig.get
-    _ <- ZIO.logInfo(s"Server (HTTP) is running on port ${config.interface.httpPort}. Press Ctrl-C to stop.")
-    http <- HTTPServer.start.exitCode
+    _      <- ZIO.logInfo(s"Server (HTTP) is running on port ${config.interface.httpPort}. Press Ctrl-C to stop.")
+    http   <- HTTPServer.start.exitCode
   } yield http
 
   override def run: ZIO[Any, Nothing, ExitCode] = program

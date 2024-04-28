@@ -1,19 +1,20 @@
-
 import sbt.*
 
 object Dependencies {
 
   object Version {
+    val scala        = "2.13.11"
     val zio          = "2.0.22"
     val zioHttp      = "3.0.0-RC6"
+    val zioLogging   = "2.2.3"
     val netty        = "4.1.94.Final"
     val config       = "4.0.1"
     val quill        = "4.8.3"
     val postgre      = "42.7.3"
-    val zioLogging   = "2.2.3"
+    val sl4j         = "2.0.12"
     val logback      = "1.5.6"
     val scalaLogging = "3.9.5"
-    val sl4j         = "2.0.12"
+
   }
 
   object ZIO {
@@ -39,9 +40,9 @@ object Dependencies {
   }
 
   object LOGS {
-    lazy val core           = "ch.qos.logback"             % "logback-classic"     % Version.logback
+    lazy val core           = "ch.qos.logback"              % "logback-classic"    % Version.logback
     lazy val scalaLogging   = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
-    lazy val sl4j           = "org.slf4j"                  % "slf4j-api"           % Version.sl4j
+    lazy val sl4j           = "org.slf4j"                   % "slf4j-api"          % Version.sl4j
     lazy val zioLogging     = "dev.zio"                    %% "zio-logging"        % Version.zioLogging
     lazy val zioLoggingLf4j = "dev.zio"                    %% "zio-logging-slf4j2" % Version.zioLogging
   }
@@ -50,7 +51,7 @@ object Dependencies {
     ZIO.core,
     ZIO.macros,
     LOGS.core,
-    LOGS.sl4j ,
+    LOGS.sl4j,
     LOGS.scalaLogging,
     LOGS.zioLogging,
     LOGS.zioLoggingLf4j,

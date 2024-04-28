@@ -1,7 +1,7 @@
 package http.api
 
 import zio.http.endpoint.Endpoint
-import zio.http.{Handler, HttpApp, Method, uuid}
+import zio.http.{uuid, Handler, HttpApp, Method}
 
 import java.util.UUID
 

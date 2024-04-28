@@ -18,8 +18,8 @@ object AppConfig {
 
   implicit val configDescriptor: Config[AppConfig] = {
     (
-      deriveConfig[Interface].nested("Interface") zip
-        deriveConfig[BasicAuth].nested("BasicAuth")
+      deriveConfig[Interface].nested("interface") zip
+        deriveConfig[BasicAuth].nested("basicAuth")
     )
       .to[AppConfig]
       .mapKey(toKebabCase)

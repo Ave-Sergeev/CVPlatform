@@ -1,3 +1,4 @@
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/andreilunev/WorkProject/CertVerifyPlatform/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock ...[0m
 [0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/db/ProfileRepositoryLive.scala:26:11: SELECT x.id, x.name, x.link FROM profile x[0m
 [0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema)[0m
 [0m[[0m[0minfo[0m] [0m[0m          ^[0m
@@ -13,3 +14,4 @@
 [0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/db/ProfileRepositoryLive.scala:61:11: DELETE FROM profile AS x3 WHERE x3.id = ?[0m
 [0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.filter(_.id == lift(id)).delete)[0m
 [0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/andreilunev/WorkProject/CertVerifyPlatform/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock.[0m

@@ -1,7 +1,7 @@
 object Settings {
   val compilerOptions = Seq(
-    "-deprecation", // Emit warning and location for usages of deprecated APIs.
-    "-encoding",
+    "-deprecation",                  // Emit warning and location for usages of deprecated APIs.
+    "-encoding",                     //
     "UTF-8",                         // Specify character encoding used by source files.
     "-explaintypes",                 // Explain type errors in more detail.
     "-feature",                      // Emit warning and location for usages of features that should be imported explicitly.
@@ -21,7 +21,7 @@ object Settings {
     "-Xlint:inaccessible",           // Warn about inaccessible types in method signatures.
     "-Xlint:infer-any",              // Warn when a type argument is inferred to be `Any`.
     "-Xlint:missing-interpolator",   // A string literal appears to be missing an interpolator id.
-    "-Xlint:nullary-unit",           // Warn when nullary methods return Unit.
+    "-Xlint:nullary-unit",           // Warn when nullable methods return Unit.
     "-Xlint:option-implicit",        // Option.apply used implicit view.
     "-Xlint:package-object-classes", // Class or object defined in package object.
     "-Xlint:poly-implicit-overload", // Parameterized overloaded implicit methods are not visible as view bounds.
@@ -30,12 +30,11 @@ object Settings {
     "-Xlint:type-parameter-shadow",  // A local type parameter shadows a type already in scope.
     "-Ywarn-dead-code",              // Warn when dead code is identified.
     "-Ywarn-extra-implicit",         // Warn when more than one implicit parameter section is defined.
-    // "-Ywarn-numeric-widen",    // Warn when numerics are widened.
-    "-Ywarn-unused:implicits", // Warn if an implicit parameter is unused.
-    "-Ywarn-unused:privates",  // Warn if a private member is unused.
+    "-Ywarn-unused:implicits",       // Warn if an implicit parameter is unused.
+    "-Ywarn-unused:privates",        // Warn if a private member is unused.
     "-Ybackend-parallelism",
-    "8",                                         // Enable paralellisation — change to desired number!
+    "8",                                         // Enable parallelization — change to desired number!
     "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
-    "-Ycache-macro-class-loader:last-modified",  // and macro definitions. This can lead to performance improvements.
+    "-Ycache-macro-class-loader:last-modified"   // and macro definitions. This can lead to performance improvements.
   )
 }

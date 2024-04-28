@@ -1,13 +1,23 @@
-ThisBuild / version := "0.1.0-SNAPSHOT"
+val projectName    = "CertVerifyPlatform"
+val projectVersion = "0.1.3"
 
-ThisBuild / scalaVersion := "2.13.13"
+name         := projectName
+version      := projectVersion
+scalaVersion := Dependencies.Version.scala
 
-val projectName = "CertVerifyPlatform"
-
-name:= projectName
+def scalafmtSettings = Seq(
+  Compile / compile := (Compile / compile)
+    .dependsOn(
+      Compile / scalafmtCheckAll,
+      Compile / scalafmtSbtCheck
+    )
+    .value
+)
 
 lazy val root = (project in file("."))
+  .enablePlugins(ScalafixPlugin)
   .settings(
     libraryDependencies ++= Dependencies.globalProjectDependencies,
     Compile / scalacOptions ++= Settings.compilerOptions,
+    scalafmtSettings
   )
