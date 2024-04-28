@@ -4,11 +4,15 @@ import http.HTTPServer
 import zio.Console.printLine
 import zio.Runtime.setConfigProvider
 import zio.config.typesafe.TypesafeConfigProvider
+import zio.logging.backend.SLF4J
 import zio.{ExitCode, ZIO, ZIOAppArgs, ZIOAppDefault, ZLayer}
 
 object Main extends ZIOAppDefault {
 
-  override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] = setConfigProvider(TypesafeConfigProvider.fromResourcePath())
+  override val bootstrap: ZLayer[ZIOAppArgs, Any, Any] =
+    zio.Runtime.removeDefaultLoggers >>>
+      SLF4J.slf4j >>>
+      setConfigProvider(TypesafeConfigProvider.fromResourcePath())
 
   private val program = for {
     config <- AppConfig.get

@@ -1,5 +1,6 @@
 package service.profile
 
+import excepton.Exceptions._
 import service.Model.Profile
 import storage.db.ProfileRepository
 import zio.http.{Request, Response}
@@ -20,7 +21,7 @@ object ProfileService {
       body <- req.body.asString
       profile <- ZIO
         .fromEither(JsonDecoder[Profile].decodeJson(body))
-        .orElseFail(new Throwable("Fail to decode json"))
+        .orElseFail(BodyParsingException("Fail to decode json"))
       result <- ProfileRepository.insert(profile)
     } yield Response.json(result.toJson)
 
@@ -29,7 +30,7 @@ object ProfileService {
       body <- req.body.asString
       profile <- ZIO
         .fromEither(JsonDecoder[Profile].decodeJson(body))
-        .orElseFail(new Throwable("Fail to decode json"))
+        .orElseFail(BodyParsingException("Fail to decode json"))
       result <- ProfileRepository.update(profile)
     } yield Response.json(result.toJson)
 

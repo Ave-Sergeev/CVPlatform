@@ -1,5 +1,6 @@
 package storage.db
 
+import excepton.Exceptions._
 import io.getquill.{PostgresZioJdbcContext, SnakeCase}
 import service.Model.Profile
 import storage.DB
@@ -23,25 +24,25 @@ case class ProfileRepositoryLive(ds: DataSource) extends ProfileRepository {
   override def getAll: Task[List[Profile]] =
     ctx
       .run(profileSchema)
-      .mapError(err => new Throwable(err.getMessage))
+      .mapError(err => InternalDatabaseException(err.getMessage))
       .provide(dsLayer)
 
   override def getById(id: UUID): Task[Profile] =
     ctx
       .run(profileSchema.filter(_.id == lift(id)))
       .mapBoth(
-        err => new Throwable(err.getMessage),
+        err => InternalDatabaseException(err.getMessage),
         _.headOption
       )
       .some
-      .orElseFail(new Throwable("Profile with this id was not found"))
+      .orElseFail(ResourceNotFoundException("Profile with this id was not found"))
       .provide(dsLayer)
 
   override def insert(profile: Profile): Task[UUID] =
     ctx
       .run(profileSchema.insertValue(lift(profile)).returning(value => value))
       .mapBoth(
-        err => new Throwable(err.getMessage),
+        err => InternalDatabaseException(err.getMessage),
         result => result.id
       )
       .provide(dsLayer)
@@ -50,7 +51,7 @@ case class ProfileRepositoryLive(ds: DataSource) extends ProfileRepository {
     ctx
       .run(profileSchema.updateValue(lift(profile)).returning(value => value))
       .mapBoth(
-        err => new Throwable(err.getMessage),
+        err => InternalDatabaseException(err.getMessage),
         result => result.id
       )
       .provide(dsLayer)
@@ -58,7 +59,7 @@ case class ProfileRepositoryLive(ds: DataSource) extends ProfileRepository {
   override def deleteById(id: UUID): Task[Unit] =
     ctx
       .run(profileSchema.filter(_.id == lift(id)).delete)
-      .mapError(err => new Throwable(err.getMessage))
+      .mapError(err => InternalDatabaseException(err.getMessage))
       .unit
       .provide(dsLayer)
 }
