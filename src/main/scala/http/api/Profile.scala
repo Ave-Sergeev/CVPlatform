@@ -3,7 +3,7 @@ package http.api
 import auth.AuthService
 import http.handlers.ExceptionHandler.exceptionHandler
 import service.profile.ProfileService
-import storage.db.ProfileRepository
+import storage.postgres.ProfileRepository
 import zio.http.Middleware._
 import zio.http._
 

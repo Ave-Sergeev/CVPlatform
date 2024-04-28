@@ -3,11 +3,11 @@ package http
 import auth.AuthService
 import config.AppConfig
 import http.api.{Health, Profile, TestEndpoint}
-import storage.db.ProfileRepository
+import storage.postgres.ProfileRepository
 import zio.http.Server
 import zio.http.netty.NettyConfig
 import zio.http.netty.NettyConfig.LeakDetectionLevel
-import zio.{TaskLayer, URIO, ZIO, ZLayer}
+import zio.{URIO, ZIO, ZLayer}
 
 object HTTPServer {
 
@@ -21,10 +21,10 @@ object HTTPServer {
   )
 
   private val serverConfigLayer = ZLayer.fromZIO {
-    ZIO.config[AppConfig](AppConfig.configDescriptor).map { config =>
+    ZIO.serviceWith[AppConfig] { config =>
       Server.Config.default.port(config.interface.httpPort)
     }
   }
 
-  lazy val live: TaskLayer[Server] = (serverConfigLayer ++ nettyConfigLayer) >>> Server.customized
+  lazy val live: ZLayer[AppConfig, Throwable, Server] = (serverConfigLayer ++ nettyConfigLayer) >>> Server.customized
 }

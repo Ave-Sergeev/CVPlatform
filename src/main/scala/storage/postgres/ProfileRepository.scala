@@ -1,4 +1,4 @@
-package storage.db
+package storage.postgres
 
 import service.Model.Profile
 import zio.macros.accessible

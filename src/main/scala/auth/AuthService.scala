@@ -2,7 +2,8 @@ package auth
 
 import zio.http.{Request, Response}
 import zio.macros.accessible
-import zio.{IO, TaskLayer}
+import zio.redis.Redis
+import zio.{Config, IO, ZLayer}
 
 @accessible
 trait AuthService {
@@ -10,5 +11,5 @@ trait AuthService {
 }
 
 object AuthService {
-  val live: TaskLayer[AuthService] = AuthServiceLive.layer
+  val live: ZLayer[Redis, Config.Error, AuthServiceLive] = AuthServiceLive.layer
 }

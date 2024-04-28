@@ -3,9 +3,11 @@ package auth
 import config.AppConfig
 import zio.http.Header.Authorization
 import zio.http.{Credentials, Request, Response}
-import zio.{IO, TaskLayer, ZIO, ZLayer}
+import zio.redis.Redis
+import zio.{Config, IO, ZIO, ZLayer}
 
 case class AuthServiceLive(
+    redis: Redis,
     config: AppConfig
 ) extends AuthService {
 
@@ -36,10 +38,11 @@ case class AuthServiceLive(
 }
 
 object AuthServiceLive {
-  lazy val layer: TaskLayer[AuthService] = ZLayer {
+  lazy val layer: ZLayer[Redis, Config.Error, AuthServiceLive] = ZLayer {
     for {
       config <- AppConfig.get
-      client = AuthServiceLive(config)
+      redis  <- ZIO.service[Redis]
+      client = AuthServiceLive(redis, config)
     } yield client
   }
 }

@@ -6,7 +6,9 @@ object Dependencies {
     val scala        = "2.13.11"
     val zio          = "2.0.22"
     val zioHttp      = "3.0.0-RC6"
+    val zioRedis     = "0.2.0+89-2715ae5b-SNAPSHOT"
     val zioLogging   = "2.2.3"
+    val zioSchema    = "1.1.1"
     val netty        = "4.1.94.Final"
     val config       = "4.0.1"
     val quill        = "4.8.3"
@@ -14,12 +16,15 @@ object Dependencies {
     val sl4j         = "2.0.12"
     val logback      = "1.5.6"
     val scalaLogging = "3.9.5"
-
   }
 
   object ZIO {
-    lazy val core   = "dev.zio" %% "zio"        % Version.zio
-    lazy val macros = "dev.zio" %% "zio-macros" % Version.zio
+    lazy val core          = "dev.zio" %% "zio"                % Version.zio
+    lazy val macros        = "dev.zio" %% "zio-macros"         % Version.zio
+    lazy val schema        = "dev.zio" %% "zio-schema"         % Version.zioSchema
+    lazy val schemaJson    = "dev.zio" %% "zio-schema-json"    % Version.zioSchema
+    lazy val redis         = "dev.zio" %% "zio-redis"          % Version.zioRedis
+    lazy val redisEmbedded = "dev.zio" %% "zio-redis-embedded" % Version.zioRedis
   }
 
   object HTTP {
@@ -50,6 +55,10 @@ object Dependencies {
   lazy val globalProjectDependencies = Seq(
     ZIO.core,
     ZIO.macros,
+    ZIO.schema,
+    ZIO.schemaJson,
+    ZIO.redis,
+    ZIO.redisEmbedded,
     LOGS.core,
     LOGS.sl4j,
     LOGS.scalaLogging,

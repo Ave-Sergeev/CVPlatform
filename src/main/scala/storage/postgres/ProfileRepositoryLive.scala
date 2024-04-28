@@ -1,4 +1,4 @@
-package storage.db
+package storage.postgres
 
 import excepton.Exceptions._
 import io.getquill.{PostgresZioJdbcContext, SnakeCase}

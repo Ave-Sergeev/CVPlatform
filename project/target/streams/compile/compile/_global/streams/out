@@ -1,7 +1,4 @@
-[error] /Users/andreilunev/WorkProject/gRPCtoHTTP/project/Dependencies.scala:32:11: identifier expected but ',' found.
-[error]     GRPC. ,
-[error]           ^
-[error] /Users/andreilunev/WorkProject/gRPCtoHTTP/project/Dependencies.scala:34:3: identifier expected but ')' found.
-[error]   )
-[error]   ^
-[error] two errors found
+[error] /Users/andreilunev/WorkProject/CertVerifyPlatform/project/Dependencies.scala:55:9: value zioRedis is not a member of object Dependencies.ZIO
+[error]     ZIO.zioRedis,
+[error]         ^
+[error] one error found
