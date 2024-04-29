@@ -16,6 +16,7 @@ object Dependencies {
     val sl4j         = "2.0.12"
     val logback      = "1.5.6"
     val scalaLogging = "3.9.5"
+    val liquibase    = "3.4.2"
   }
 
   object ZIO {
@@ -40,8 +41,9 @@ object Dependencies {
   }
 
   object DATABASE {
-    lazy val quill   = "io.getquill"   %% "quill-jdbc-zio" % Version.quill
-    lazy val postgre = "org.postgresql" % "postgresql"     % Version.postgre
+    lazy val quill     = "io.getquill"   %% "quill-jdbc-zio" % Version.quill
+    lazy val postgre   = "org.postgresql" % "postgresql"     % Version.postgre
+    lazy val liquibase = "org.liquibase"  % "liquibase-core" % Version.liquibase
   }
 
   object LOGS {
@@ -71,6 +73,7 @@ object Dependencies {
     CONFIG.typesafe,
     CONFIG.refined,
     DATABASE.quill,
-    DATABASE.postgre
+    DATABASE.postgre,
+    DATABASE.liquibase
   )
 }

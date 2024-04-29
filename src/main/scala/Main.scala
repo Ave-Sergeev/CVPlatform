@@ -1,5 +1,6 @@
 import config.AppConfig
 import http.HTTPServer
+import storage.liquibase.LiquibaseService
 import zio.Console.printLine
 import zio.Runtime.setConfigProvider
 import zio.config.typesafe.TypesafeConfigProvider
@@ -16,7 +17,7 @@ object Main extends ZIOAppDefault {
   private val program = for {
     config <- AppConfig.get
     _      <- ZIO.logInfo(s"Server (HTTP) is running on port ${config.interface.httpPort}. Press Ctrl-C to stop.")
-    http   <- HTTPServer.start.exitCode
+    http   <- LiquibaseService.performMigration *> HTTPServer.start.exitCode
   } yield http
 
   override def run: ZIO[Any, Nothing, ExitCode] = program

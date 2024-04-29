@@ -1,6 +1,7 @@
 import auth.AuthService
 import config.AppConfig
 import http.HTTPServer
+import storage.liquibase.LiquibaseService
 import storage.postgres.ProfileRepository
 import storage.redis._
 import zio.Scope
@@ -14,7 +15,9 @@ object Layers {
   private val services =
     (redisProtobufCodecLayer >>> AuthService.live) >+>
       HTTPServer.live >+>
-      ProfileRepository.live
+      ProfileRepository.live >+>
+      LiquibaseService.live >+>
+      LiquibaseService.liquibaseLayer
 
   val all =
     runtime >+>

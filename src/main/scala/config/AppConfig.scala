@@ -8,8 +8,11 @@ import zio.{Config, IO, Layer, ZIO, ZLayer}
 case class AppConfig(
     interface: Interface,
     basicAuth: BasicAuth,
-    redis: Redis
+    redis: Redis,
+    liquibase: Liquibase
 )
+
+case class Liquibase(changeLog: String)
 
 case class Interface(httpPort: Int, grpcPort: Int)
 
@@ -23,7 +26,8 @@ object AppConfig {
     (
       deriveConfig[Interface].nested("interface") zip
         deriveConfig[BasicAuth].nested("basicAuth") zip
-        deriveConfig[Redis].nested("redis")
+        deriveConfig[Redis].nested("redis") zip
+        deriveConfig[Liquibase].nested("liquibase")
     )
       .to[AppConfig]
       .mapKey(toKebabCase)

@@ -1,7 +1,31 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-dist/
+# Default ignored files
+*.iml
+*.ipr
+*.iws
+.idea
+.bsp
+out
+.idea/
+.bloop
+.metals
+project/project/
+build
+*.sc
+~
+
+### Scala template
+target
+*.class
+*.log
+
+# for Mac
+.DS_Store
+
+# SBT
+dist/*
 target/
 lib_managed/
 src_managed/
@@ -10,17 +34,3 @@ project/plugins/project/
 .history
 .cache
 .lib/
-
-### Scala template
-*.class
-*.log
-
-.idea/
-.vscode/
-.bloop
-.metals
-.bsp
-project/project/
-build
-*.sc
-~
