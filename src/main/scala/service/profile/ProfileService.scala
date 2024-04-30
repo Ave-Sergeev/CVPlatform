@@ -1,6 +1,6 @@
 package service.profile
 
-import excepton.Exceptions._
+import exception.Exceptions._
 import service.Model.Profile
 import storage.postgres.ProfileRepository
 import zio.http.{Request, Response}

@@ -1,29 +1,2 @@
 [0m[[0m[0mdebug[0m] [0m[0mCreated transactional ClassFileManager with tempDir = /Users/andreilunev/WorkProject/CertVerifyPlatform/project/target/scala-2.12/sbt-1.0/classes.bak[0m
-[0m[[0m[0mdebug[0m] [0m[0mAbout to delete class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$HTTP$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$LOGS$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$CONFIG$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$Version$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$ZIO$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$DATABASE$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0mWe backup class files:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$HTTP$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$LOGS$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$CONFIG$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$Version$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$ZIO$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$DATABASE$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0mRegistering generated classes:[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$HTTP$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$LOGS$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$CONFIG$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$Version$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$ZIO$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$.class[0m
-[0m[[0m[0mdebug[0m] [0m[0m	Dependencies$DATABASE$.class[0m
 [0m[[0m[0mdebug[0m] [0m[0mRemoving the temporary directory used for backing up class files: /Users/andreilunev/WorkProject/CertVerifyPlatform/project/target/scala-2.12/sbt-1.0/classes.bak[0m

@@ -1,6 +1,6 @@
 package http.handlers
 
-import excepton.Exceptions._
+import exception.Exceptions._
 import zio.http.Response
 
 object ExceptionHandler {

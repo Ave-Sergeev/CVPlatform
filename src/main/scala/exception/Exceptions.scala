@@ -1,7 +1,7 @@
-package excepton
+package exception
 
 object Exceptions {
-  sealed abstract class CustomException(message: String) extends Exception(message)
+  sealed abstract class CustomException(message: String = "") extends Exception(message)
 
   case class ResourceNotFoundException(message: String) extends CustomException(message)
 
@@ -12,4 +12,6 @@ object Exceptions {
   case class UnsupportedFeatureException(message: String) extends CustomException(message)
 
   case class InternalException(message: String) extends CustomException(message)
+
+  case class InternalRedisException(message: String) extends CustomException(message)
 }

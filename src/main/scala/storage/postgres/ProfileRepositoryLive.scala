@@ -1,6 +1,6 @@
 package storage.postgres
 
-import excepton.Exceptions._
+import exception.Exceptions._
 import io.getquill.{PostgresZioJdbcContext, SnakeCase}
 import service.Model.Profile
 import storage.DB
