@@ -3,13 +3,13 @@ package auth
 import zio.http.{Request, Response}
 import zio.macros.accessible
 import zio.redis.Redis
-import zio.{Config, IO, ZLayer}
+import zio.{Scope, ZIO, ZLayer}
 
 @accessible
 trait AuthService {
-  def validateAuth(request: Request): IO[Response, Boolean]
+  def validateAuth(request: Request): ZIO[Scope, Response, Boolean]
 }
 
 object AuthService {
-  val live: ZLayer[Redis, Config.Error, AuthServiceLive] = AuthServiceLive.layer
+  val live: ZLayer[Redis, Throwable, AuthService] = AuthServiceLive.layer
 }

@@ -4,13 +4,14 @@ import auth.AuthService
 import http.handlers.ExceptionHandler.exceptionHandler
 import service.profile.ProfileService
 import storage.postgres.ProfileRepository
+import zio.Scope
 import zio.http.Middleware._
 import zio.http._
 
 import java.util.UUID
 
 object Profile {
-  def routes: HttpApp[AuthService with ProfileRepository] =
+  def routes: HttpApp[AuthService with Scope with ProfileRepository] =
     Routes(
       Method.GET / "profile" -> handler {
         ProfileService.getAllProfiles
