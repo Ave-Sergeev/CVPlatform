@@ -8,7 +8,7 @@ import zio.{Config, IO, Layer, ZIO, ZLayer}
 case class AppConfig(
     interface: Interface,
     basicAuth: BasicAuth,
-    redis: Redis,
+    redis: RedisConfig,
     liquibase: Liquibase,
     keycloak: Keycloak
 )
@@ -18,13 +18,6 @@ case class Liquibase(changeLog: String)
 case class Interface(httpPort: Int, grpcPort: Int)
 
 case class BasicAuth(login: Secret, password: Secret)
-
-case class Redis(
-    host: String,
-    port: Int,
-    username: Option[Secret],
-    secret: Secret
-)
 
 case class Keycloak(
     host: String,
@@ -39,7 +32,7 @@ object AppConfig {
     (
       deriveConfig[Interface].nested("interface") zip
         deriveConfig[BasicAuth].nested("basicAuth") zip
-        deriveConfig[Redis].nested("redis") zip
+        deriveConfig[RedisConfig].nested("redis") zip
         deriveConfig[Liquibase].nested("liquibase") zip
         deriveConfig[Keycloak].nested("keycloak")
     )

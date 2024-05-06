@@ -5,6 +5,7 @@ object Dependencies {
   object Version {
     val scala        = "2.13.11"
     val zio          = "2.0.22"
+    val zioJson      = "0.6.2"
     val zioHttp      = "3.0.0-RC6"
     val zioRedis     = "0.2.0+89-2715ae5b-SNAPSHOT"
     val zioLogging   = "2.2.3"
@@ -22,6 +23,7 @@ object Dependencies {
   object ZIO {
     lazy val core          = "dev.zio" %% "zio"                % Version.zio
     lazy val macros        = "dev.zio" %% "zio-macros"         % Version.zio
+    lazy val json          = "dev.zio" %% "zio-json"           % Version.zioJson
     lazy val schema        = "dev.zio" %% "zio-schema"         % Version.zioSchema
     lazy val schemaJson    = "dev.zio" %% "zio-schema-json"    % Version.zioSchema
     lazy val redis         = "dev.zio" %% "zio-redis"          % Version.zioRedis
@@ -56,6 +58,7 @@ object Dependencies {
 
   lazy val globalProjectDependencies = Seq(
     ZIO.core,
+    ZIO.json,
     ZIO.macros,
     ZIO.schema,
     ZIO.schemaJson,
