@@ -5,8 +5,6 @@ import zio.Config.Secret
 case class RedisConfig(
     username: Option[Secret],
     secret: Secret,
-    entryLifeDays: Int,
-    requestQueueSize: Option[Int],
     deployment: RedisConfig.DeploymentModel
 )
 

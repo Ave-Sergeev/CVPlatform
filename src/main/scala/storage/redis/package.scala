@@ -15,14 +15,13 @@ package object redis {
     ZLayer
       .service[AppConfig]
       .flatMap { config =>
-        val redisConfig      = config.get.redis
-        val requestQueueSize = redisConfig.requestQueueSize.getOrElse(16)
+        val redisConfig = config.get.redis
         redisConfig.deployment match {
           case Single(host, port, ssl, sni) =>
-            ZLayer.succeed(redis.RedisConfig(host, port, sni, ssl.getOrElse(false), requestQueueSize)) >>> Redis.singleNode
+            ZLayer.succeed(redis.RedisConfig(host, port, sni, ssl.getOrElse(false))) >>> Redis.singleNode
           case Cluster(nodes) =>
             val nodesConfig = Chunk.fromIterable(nodes.map(node => RedisUri(node.host, node.port, node.ssl.getOrElse(false), node.sni)))
-            ZLayer.succeed(RedisClusterConfig(nodesConfig, requestQueueSize = requestQueueSize)) >>> Redis.cluster
+            ZLayer.succeed(RedisClusterConfig(nodesConfig)) >>> Redis.cluster
         }
       }
       .tap { redis: ZEnvironment[Redis] =>
