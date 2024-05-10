@@ -8,10 +8,13 @@ import zio.{Config, IO, Layer, ZIO, ZLayer}
 case class AppConfig(
     interface: Interface,
     basicAuth: BasicAuth,
-    redis: RedisConfig,
+    redis: Redis,
     liquibase: Liquibase,
-    keycloak: Keycloak
+    keycloak: Keycloak,
+    kafka: Kafka
 )
+
+case class Kafka(host: String, port: String)
 
 case class Liquibase(changeLog: String)
 
@@ -32,9 +35,10 @@ object AppConfig {
     (
       deriveConfig[Interface].nested("interface") zip
         deriveConfig[BasicAuth].nested("basicAuth") zip
-        deriveConfig[RedisConfig].nested("redis") zip
+        deriveConfig[Redis].nested("redis") zip
         deriveConfig[Liquibase].nested("liquibase") zip
-        deriveConfig[Keycloak].nested("keycloak")
+        deriveConfig[Keycloak].nested("keycloak") zip
+        deriveConfig[Kafka].nested("kafka")
     )
       .to[AppConfig]
       .mapKey(toKebabCase)

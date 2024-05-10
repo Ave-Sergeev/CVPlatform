@@ -1,12 +1,11 @@
 package storage
 
 import config.AppConfig
-import config.RedisConfig._
 import zio.redis._
 import zio.redis.embedded.EmbeddedRedis
 import zio.schema.Schema
 import zio.schema.codec.{BinaryCodec, JsonCodec, ProtobufCodec}
-import zio.{redis, Chunk, TaskLayer, ULayer, ZEnvironment, ZIO, ZLayer}
+import zio.{redis, TaskLayer, ULayer, ZEnvironment, ZIO, ZLayer}
 
 package object redis {
   import util._
@@ -16,13 +15,7 @@ package object redis {
       .service[AppConfig]
       .flatMap { config =>
         val redisConfig = config.get.redis
-        redisConfig.deployment match {
-          case Single(host, port, ssl, sni) =>
-            ZLayer.succeed(redis.RedisConfig(host, port, sni, ssl.getOrElse(false))) >>> Redis.singleNode
-          case Cluster(nodes) =>
-            val nodesConfig = Chunk.fromIterable(nodes.map(node => RedisUri(node.host, node.port, node.ssl.getOrElse(false), node.sni)))
-            ZLayer.succeed(RedisClusterConfig(nodesConfig)) >>> Redis.cluster
-        }
+        ZLayer.succeed(redis.RedisConfig(redisConfig.host, redisConfig.port)) >>> Redis.singleNode
       }
       .tap { redis: ZEnvironment[Redis] =>
         ZIO.serviceWithZIO[AppConfig] { config =>

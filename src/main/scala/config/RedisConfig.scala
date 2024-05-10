@@ -2,23 +2,9 @@ package config
 
 import zio.Config.Secret
 
-case class RedisConfig(
+case class Redis(
+    host: String,
+    port: Int,
     username: Option[Secret],
-    secret: Secret,
-    deployment: RedisConfig.DeploymentModel
+    secret: Secret
 )
-
-object RedisConfig {
-  sealed trait DeploymentModel
-
-  case class Single(
-      host: String,
-      port: Int,
-      ssl: Option[Boolean],
-      sni: Option[String]
-  ) extends DeploymentModel
-
-  case class Cluster(
-      nodes: List[Single]
-  ) extends DeploymentModel
-}

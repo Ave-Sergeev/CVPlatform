@@ -4,7 +4,7 @@ import config.AppConfig
 import liquibase.Liquibase
 import storage.DB
 import zio.macros.accessible
-import zio.{RIO, Scope, URIO, ZIO, ZLayer}
+import zio.{RIO, Scope, ZLayer}
 
 @accessible
 trait LiquibaseService {
@@ -14,8 +14,6 @@ trait LiquibaseService {
 }
 
 object LiquibaseService {
-
-  def liquibase: URIO[Liquibase, Liquibase] = ZIO.service[Liquibase]
 
   val live: ZLayer[Any, Throwable, LiquibaseServiceLive] = LiquibaseServiceLive.layer
 

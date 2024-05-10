@@ -4,22 +4,22 @@ import config.AppConfig
 import liquibase.Liquibase
 import liquibase.database.jvm.JdbcConnection
 import liquibase.resource.{ClassLoaderResourceAccessor, CompositeResourceAccessor, FileSystemResourceAccessor}
-import zio.{RIO, Scope, ULayer, ZIO, ZLayer}
+import zio.{RIO, Scope, ULayer, URIO, ZIO, ZLayer}
 
 import javax.sql.DataSource
 
 final case class LiquibaseServiceLive() extends LiquibaseService {
 
-  override def performMigration: RIO[Liquibase, Unit] = LiquibaseService.liquibase.map(_.update("dev"))
+  override def performMigration: RIO[Liquibase, Unit] = LiquibaseServiceLive.liquibase.map(_.update("dev"))
 
   override def performMigrationClean: RIO[Liquibase, Unit] = for {
-    liquibase <- LiquibaseService.liquibase
+    liquibase <- LiquibaseServiceLive.liquibase
     _         <- ZIO.from(liquibase.clearCheckSums())
     _         <- ZIO.from(liquibase.update("dev"))
   } yield ()
 
   override def performMigrationWithDropAll: RIO[Liquibase, Unit] = for {
-    liquibase <- LiquibaseService.liquibase
+    liquibase <- LiquibaseServiceLive.liquibase
     _         <- ZIO.from(liquibase.clearCheckSums())
     _         <- ZIO.from(liquibase.dropAll())
     _         <- ZIO.from(liquibase.update("dev"))
@@ -27,6 +27,8 @@ final case class LiquibaseServiceLive() extends LiquibaseService {
 }
 
 object LiquibaseServiceLive {
+
+  def liquibase: URIO[Liquibase, Liquibase] = ZIO.service[Liquibase]
 
   def layer: ULayer[LiquibaseServiceLive] = ZLayer.succeed(LiquibaseServiceLive())
 

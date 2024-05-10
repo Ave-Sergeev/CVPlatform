@@ -11,6 +11,7 @@ object Dependencies {
     val zioLogging   = "2.2.3"
     val zioSchema    = "1.1.1"
     val netty        = "4.1.94.Final"
+    val kafka        = "2.7.4"
     val config       = "4.0.1"
     val quill        = "4.8.3"
     val postgre      = "42.7.3"
@@ -56,6 +57,10 @@ object Dependencies {
     lazy val zioLoggingLf4j = "dev.zio"                    %% "zio-logging-slf4j2" % Version.zioLogging
   }
 
+  object MESSAGEBROKER {
+    val kafka = "dev.zio" %% "zio-kafka" % Version.kafka
+  }
+
   lazy val globalProjectDependencies = Seq(
     ZIO.core,
     ZIO.json,
@@ -77,6 +82,7 @@ object Dependencies {
     CONFIG.refined,
     DATABASE.quill,
     DATABASE.postgre,
-    DATABASE.liquibase
+    DATABASE.liquibase,
+    MESSAGEBROKER.kafka
   )
 }
