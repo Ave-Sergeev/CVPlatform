@@ -1,7 +1,7 @@
 package service.profile
 
 import exception.Exceptions._
-import service.Model.Profile
+import service.models.Profile
 import storage.postgres.ProfileRepository
 import zio.http.{Request, Response}
 import zio.json.{EncoderOps, JsonDecoder}

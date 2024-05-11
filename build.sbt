@@ -1,5 +1,5 @@
 val projectName    = "CertVerifyPlatform"
-val projectVersion = "0.1.3"
+val projectVersion = "1.0.0"
 
 name         := projectName
 version      := projectVersion

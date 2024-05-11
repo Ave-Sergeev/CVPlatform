@@ -1,10 +1,11 @@
 package storage.postgres
 
-import service.Model.Profile
+import service.models.Profile
 import zio.macros.accessible
-import zio.{Task, TaskLayer}
+import zio.{Task, URLayer}
 
 import java.util.UUID
+import javax.sql.DataSource
 
 @accessible
 trait ProfileRepository {
@@ -16,5 +17,5 @@ trait ProfileRepository {
 }
 
 object ProfileRepository {
-  val live: TaskLayer[ProfileRepository] = ProfileRepositoryLive.layer
+  val live: URLayer[DataSource, ProfileRepositoryLive] = ProfileRepositoryLive.layer
 }

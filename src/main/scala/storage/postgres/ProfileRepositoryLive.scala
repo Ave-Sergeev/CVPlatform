@@ -2,9 +2,8 @@ package storage.postgres
 
 import exception.Exceptions._
 import io.getquill.{PostgresZioJdbcContext, SnakeCase}
-import service.Model.Profile
-import storage.DB
-import zio.{Task, TaskLayer, ZLayer}
+import service.models.Profile
+import zio.{Task, URLayer, ZLayer}
 
 import java.util.UUID
 import javax.sql.DataSource
@@ -65,6 +64,6 @@ case class ProfileRepositoryLive(ds: DataSource) extends ProfileRepository {
 }
 
 object ProfileRepositoryLive {
-  def layer: TaskLayer[ProfileRepository] =
-    DB.live >>> ZLayer.fromFunction[DataSource => ProfileRepositoryLive](ds => ProfileRepositoryLive(ds))
+  def layer: URLayer[DataSource, ProfileRepositoryLive] =
+    ZLayer.fromFunction[DataSource => ProfileRepositoryLive](ProfileRepositoryLive(_))
 }

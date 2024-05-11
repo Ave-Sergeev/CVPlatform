@@ -13,5 +13,5 @@ object Exceptions {
 
   case class InternalException(message: String) extends CustomException(message)
 
-  case class InternalRedisException(message: String) extends CustomException(message)
+  case class AuthException(message: String) extends CustomException(message)
 }

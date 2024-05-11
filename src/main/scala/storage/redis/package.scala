@@ -2,10 +2,9 @@ package storage
 
 import config.AppConfig
 import zio.redis._
-import zio.redis.embedded.EmbeddedRedis
 import zio.schema.Schema
 import zio.schema.codec.{BinaryCodec, JsonCodec, ProtobufCodec}
-import zio.{redis, TaskLayer, ULayer, ZEnvironment, ZIO, ZLayer}
+import zio.{redis, ULayer, ZEnvironment, ZIO, ZLayer}
 
 package object redis {
   import util._
@@ -32,12 +31,6 @@ package object redis {
 
   def redisProtobufCodecLayer: ZLayer[AppConfig, RedisError, Redis] =
     protobufCodecLayer >>> redisConnection
-
-  def redisJsonTestLayer: TaskLayer[Redis] =
-    (jsonBinaryCodecLayer ++ EmbeddedRedis.layer) >>> Redis.singleNode
-
-  def redisProtobufTestLayer: TaskLayer[Redis] =
-    (protobufCodecLayer ++ EmbeddedRedis.layer) >>> Redis.singleNode
 
   private val jsonBinaryCodecLayer: ULayer[CodecSupplier] = ZLayer.succeed[CodecSupplier](new CodecSupplier {
     override def get[A: Schema]: BinaryCodec[A] = JsonCodec.schemaBasedBinaryCodec

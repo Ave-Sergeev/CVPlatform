@@ -1,4 +1,4 @@
-package auth.model
+package auth.models
 
 import zio.json._
 import zio.schema.{DeriveSchema, Schema}

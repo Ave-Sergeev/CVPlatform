@@ -12,7 +12,7 @@ object Dependencies {
     val zioSchema    = "1.1.1"
     val netty        = "4.1.94.Final"
     val kafka        = "2.7.4"
-    val config       = "4.0.1"
+    val config       = "4.0.2"
     val quill        = "4.8.3"
     val postgre      = "42.7.3"
     val sl4j         = "2.0.12"
@@ -43,7 +43,7 @@ object Dependencies {
     lazy val refined  = "dev.zio" %% "zio-config-refined"  % Version.config
   }
 
-  object DATABASE {
+  object STORAGE {
     lazy val quill     = "io.getquill"   %% "quill-jdbc-zio" % Version.quill
     lazy val postgre   = "org.postgresql" % "postgresql"     % Version.postgre
     lazy val liquibase = "org.liquibase"  % "liquibase-core" % Version.liquibase
@@ -55,10 +55,6 @@ object Dependencies {
     lazy val sl4j           = "org.slf4j"                   % "slf4j-api"          % Version.sl4j
     lazy val zioLogging     = "dev.zio"                    %% "zio-logging"        % Version.zioLogging
     lazy val zioLoggingLf4j = "dev.zio"                    %% "zio-logging-slf4j2" % Version.zioLogging
-  }
-
-  object MESSAGEBROKER {
-    val kafka = "dev.zio" %% "zio-kafka" % Version.kafka
   }
 
   lazy val globalProjectDependencies = Seq(
@@ -80,9 +76,8 @@ object Dependencies {
     CONFIG.magnolia,
     CONFIG.typesafe,
     CONFIG.refined,
-    DATABASE.quill,
-    DATABASE.postgre,
-    DATABASE.liquibase,
-    MESSAGEBROKER.kafka
+    STORAGE.quill,
+    STORAGE.postgre,
+    STORAGE.liquibase
   )
 }

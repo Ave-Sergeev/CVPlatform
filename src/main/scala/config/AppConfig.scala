@@ -10,17 +10,20 @@ case class AppConfig(
     basicAuth: BasicAuth,
     redis: Redis,
     liquibase: Liquibase,
-    keycloak: Keycloak,
-    kafka: Kafka
+    keycloak: Keycloak
 )
-
-case class Kafka(host: String, port: String)
 
 case class Liquibase(changeLog: String)
 
-case class Interface(httpPort: Int, grpcPort: Int)
+case class Interface(
+    httpPort: Int,
+    grpcPort: Int
+)
 
-case class BasicAuth(login: Secret, password: Secret)
+case class BasicAuth(
+    login: Secret,
+    password: Secret
+)
 
 case class Keycloak(
     host: String,
@@ -37,14 +40,15 @@ object AppConfig {
         deriveConfig[BasicAuth].nested("basicAuth") zip
         deriveConfig[Redis].nested("redis") zip
         deriveConfig[Liquibase].nested("liquibase") zip
-        deriveConfig[Keycloak].nested("keycloak") zip
-        deriveConfig[Kafka].nested("kafka")
+        deriveConfig[Keycloak].nested("keycloak")
     )
       .to[AppConfig]
       .mapKey(toKebabCase)
   }
 
   def get: IO[Config.Error, AppConfig] = ZIO.config[AppConfig](configDescriptor)
+
+  def get[A](f: AppConfig => A): IO[Config.Error, A] = get.map(f)
 
   val layer: Layer[Config.Error, AppConfig] = ZLayer.fromZIO {
     ZIO.config[AppConfig](configDescriptor)

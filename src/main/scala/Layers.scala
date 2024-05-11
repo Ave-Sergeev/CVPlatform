@@ -1,28 +1,31 @@
 import auth.AuthService
+import auth.keycloak.KeycloakAuthorizer
 import config.AppConfig
+import cvpservice.CVPServiceEnv
 import http.HTTPServer
+import storage.DB
 import storage.liquibase.LiquibaseService
 import storage.postgres.ProfileRepository
 import storage.redis._
-import zio.Scope
-import zio.http.Client
+import zio.http.{Client, ZClient}
+import zio.{Scope, TaskLayer}
 
 object Layers {
 
   private val runtime = Scope.default
 
-  private val base = AppConfig.layer
+  private val base = AppConfig.layer >+> DB.live
 
-  private val services =
-    (redisProtobufCodecLayer >>> AuthService.live) >+>
-      HTTPServer.live >+>
-      Client.default >+>
-      ProfileRepository.live >+>
-      LiquibaseService.live >+>
-      LiquibaseService.liquibaseLayer
+  private val services = Client.default >+> ZClient.default >+> redisProtobufCodecLayer
 
-  val all =
+  val all: TaskLayer[CVPServiceEnv] =
     runtime >+>
       base >+>
-      services
+      services >+>
+      HTTPServer.live >+>
+      ProfileRepository.live >+>
+      LiquibaseService.live >+>
+      KeycloakAuthorizer.live >+>
+      AuthService.live >+>
+      LiquibaseService.liquibaseLayer
 }

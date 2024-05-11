@@ -1,21 +1,19 @@
 package auth
 
-import auth.model.{IntrospectResponse, IntrospectResponseFailure, IntrospectResponseSuccess}
+import auth.keycloak.KeycloakAuthorizer
+import auth.models.{IntrospectResponseFailure, IntrospectResponseSuccess}
 import config.AppConfig
-import exception.Exceptions.{BodyParsingException, InternalException}
 import zio.http.Header.Authorization
-import zio.http.{Body, Client, Credentials, Form, Request, Response, ZClient}
-import zio.json.DecoderOps
+import zio.http.{Credentials, Request, Response}
 import zio.redis.Redis
-import zio.{durationLong, IO, Scope, ZIO, ZLayer}
+import zio.{durationLong, Config, IO, Scope, ZIO, ZLayer}
 
-import java.net.URI
 import java.time.Instant
 
 case class AuthServiceLive(
     redis: Redis,
     config: AppConfig,
-    httpClient: Client
+    keycloakAuthorizer: KeycloakAuthorizer
 ) extends AuthService {
 
   override def validateAuth(request: Request): ZIO[Scope, Response, Boolean] = {
@@ -50,7 +48,7 @@ case class AuthServiceLive(
         .returning[IntrospectResponseSuccess]
         .flatMap {
           case Some(response) => ZIO.succeed(response)
-          case None           => introspectToken(jwt)
+          case None           => keycloakAuthorizer.introspectToken(jwt)
         }
 
     introspectResponse
@@ -64,43 +62,14 @@ case class AuthServiceLive(
       .tapError(err => ZIO.logWarning(s"Error: ${err.getMessage}"))
       .mapError(err => Response.internalServerError(err.getMessage))
   }
-
-  private def introspectToken(token: String): ZIO[Scope, Throwable, IntrospectResponse] = {
-    import util._
-
-    val pathSuffix = s"/realms/${config.keycloak.realm}/protocol/openid-connect/token/introspect"
-    val body = Body.fromURLEncodedForm(
-      Form.fromStrings(
-        ("client_id", config.keycloak.clientId),
-        ("client_secret", config.keycloak.clientSecret.secretToString),
-        ("token", token)
-      )
-    )
-
-    httpClient
-      .uri(URI.create(config.keycloak.host))
-      .post(pathSuffix)(body)
-      .flatMap { response =>
-        response.body.asString
-          .mapBoth(
-            err => InternalException(err.getMessage),
-            body =>
-              ZIO
-                .fromEither(body.fromJson[IntrospectResponse])
-                .orElseFail(BodyParsingException("Fail to decode json"))
-          )
-          .flatten
-      }
-  }
 }
 
 object AuthServiceLive {
-  lazy val layer: ZLayer[Redis, Throwable, AuthService] = ZClient.default >>> ZLayer {
+  lazy val layer: ZLayer[KeycloakAuthorizer with Redis, Config.Error, AuthServiceLive] = ZLayer {
     for {
-      config     <- AppConfig.get
-      redis      <- ZIO.service[Redis]
-      httpClient <- ZIO.service[Client]
-      client = AuthServiceLive(redis, config, httpClient)
-    } yield client
+      config             <- AppConfig.get
+      redis              <- ZIO.service[Redis]
+      keycloakAuthorizer <- ZIO.service[KeycloakAuthorizer]
+    } yield AuthServiceLive(redis, config, keycloakAuthorizer)
   }
 }

@@ -1,15 +1,17 @@
 package auth
 
-import zio.http.{Request, Response}
-import zio.macros.accessible
+import auth.keycloak.KeycloakAuthorizer
+import zio.http.{Client, Request, Response}
+import zio.macros.{accessible, throwing}
 import zio.redis.Redis
-import zio.{Scope, ZIO, ZLayer}
+import zio.{Config, Scope, ZIO, ZLayer}
 
 @accessible
 trait AuthService {
+  @throwing
   def validateAuth(request: Request): ZIO[Scope, Response, Boolean]
 }
 
 object AuthService {
-  val live: ZLayer[Redis, Throwable, AuthService] = AuthServiceLive.layer
+  val live: ZLayer[Client with Redis with KeycloakAuthorizer, Config.Error, AuthService] = AuthServiceLive.layer
 }
