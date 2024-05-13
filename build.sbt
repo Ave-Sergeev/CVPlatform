@@ -1,9 +1,10 @@
 val projectName    = "CertVerifyPlatform"
 val projectVersion = "1.0.0"
 
-name         := projectName
-version      := projectVersion
-scalaVersion := Dependencies.Version.scala
+def scalaFixSettings = Seq(
+  semanticdbEnabled := true,
+  semanticdbVersion := scalafixSemanticdb.revision
+)
 
 def scalafmtSettings = Seq(
   Compile / compile := (Compile / compile)
@@ -21,7 +22,11 @@ resolvers ++= List(
 lazy val root = (project in file("."))
   .enablePlugins(ScalafixPlugin)
   .settings(
+    name         := projectName,
+    version      := projectVersion,
+    scalaVersion := Dependencies.Version.scala,
     libraryDependencies ++= Dependencies.globalProjectDependencies,
     Compile / scalacOptions ++= Settings.compilerOptions,
-    scalafmtSettings
+    scalafmtSettings,
+    scalaFixSettings
   )

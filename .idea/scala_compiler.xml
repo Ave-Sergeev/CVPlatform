@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ScalaCompilerConfiguration">
     <profile name="sbt 1" modules="certverifyplatform_194,certverifyplatform_5425" />
-    <profile name="sbt 2" modules="CertVerificationPlatform,CertVerifyPlatform,WorkProject.CertVerifyPlatform">
+    <profile name="sbt 2" modules="CertVerificationPlatform,CertVerifyPlatform">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />
@@ -41,6 +41,51 @@
         <parameter value="-Ycache-plugin-class-loader:last-modified" />
         <parameter value="-Ycache-macro-class-loader:last-modified" />
       </parameters>
+    </profile>
+    <profile name="sbt 3" modules="WorkProject.CertVerifyPlatform">
+      <option name="implicitConversions" value="true" />
+      <option name="higherKinds" value="true" />
+      <option name="existentials" value="true" />
+      <option name="macros" value="true" />
+      <option name="deprecationWarnings" value="true" />
+      <option name="uncheckedWarnings" value="true" />
+      <option name="featureWarnings" value="true" />
+      <option name="explainTypeErrors" value="true" />
+      <parameters>
+        <parameter value="-Yrangepos" />
+        <parameter value="-P:semanticdb:targetroot:/Users/andreilunev/WorkProject/CertVerifyPlatform/target/scala-2.13/meta" />
+        <parameter value="-encoding" />
+        <parameter value="UTF-8" />
+        <parameter value="-Xcheckinit" />
+        <parameter value="-Xfatal-warnings" />
+        <parameter value="-Ymacro-annotations" />
+        <parameter value="-Xlint:_,-byname-implicit" />
+        <parameter value="-Xlint:adapted-args" />
+        <parameter value="-Xlint:constant" />
+        <parameter value="-Xlint:delayedinit-select" />
+        <parameter value="-Xlint:doc-detached" />
+        <parameter value="-Xlint:inaccessible" />
+        <parameter value="-Xlint:infer-any" />
+        <parameter value="-Xlint:missing-interpolator" />
+        <parameter value="-Xlint:nullary-unit" />
+        <parameter value="-Xlint:option-implicit" />
+        <parameter value="-Xlint:package-object-classes" />
+        <parameter value="-Xlint:poly-implicit-overload" />
+        <parameter value="-Xlint:private-shadow" />
+        <parameter value="-Xlint:stars-align" />
+        <parameter value="-Xlint:type-parameter-shadow" />
+        <parameter value="-Ywarn-dead-code" />
+        <parameter value="-Ywarn-extra-implicit" />
+        <parameter value="-Ywarn-unused:implicits" />
+        <parameter value="-Ywarn-unused:privates" />
+        <parameter value="-Ybackend-parallelism" />
+        <parameter value="8" />
+        <parameter value="-Ycache-plugin-class-loader:last-modified" />
+        <parameter value="-Ycache-macro-class-loader:last-modified" />
+      </parameters>
+      <plugins>
+        <plugin path="$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.11/4.7.8/semanticdb-scalac_2.13.11-4.7.8.jar" />
+      </plugins>
     </profile>
   </component>
 </project>
