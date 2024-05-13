@@ -1,4 +1,5 @@
 import config.AppConfig
+import grpc.GrpcService
 import http.HTTPServer
 import storage.liquibase.LiquibaseService
 import zio.Console.printLine
@@ -16,9 +17,9 @@ object Main extends ZIOAppDefault {
 
   private val program = for {
     config <- AppConfig.get(_.interface)
-    _      <- ZIO.logInfo(s"Server (HTTP) is running on port ${config.httpPort}. Press Ctrl-C to stop.")
-    http   <- LiquibaseService.performMigration *> HTTPServer.start.exitCode
-  } yield http
+    _      <- ZIO.logInfo(s"Server is running on port (HTTP: ${config.httpPort} | gRPC: ${config.grpcPort}). Press Ctrl-C to stop.")
+    code   <- LiquibaseService.performMigration *> HTTPServer.start.exitCode race GrpcService.startServer.exitCode
+  } yield code
 
   override def run: UIO[ExitCode] = program
     .provide(Layers.all)

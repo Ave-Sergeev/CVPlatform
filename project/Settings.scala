@@ -33,11 +33,11 @@ object Settings {
     // "-Ywarn-numeric-widen",       // Warn when numerics are widened.
     // "-Ywarn-unused:implicits",    // Warn if an implicit parameter is unused.
     // "-Ywarn-unused:privates",     // Warn if a private member is unused.
-    "-Wunused:imports",                          // Warn if an import selector is not referenced.
+    // "-Wunused:imports",                       // Warn if an import selector is not referenced.
     "-Ybackend-parallelism",                     // Enables parallelization of only the last phase of the compiler pipeline, that is, bytecode emission.
     "8",                                         // Enable parallelization — change to desired number!
     "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
-    "-Ycache-macro-class-loader:last-modified",  // and macro definitions. This can lead to performance improvements.
+    "-Ycache-macro-class-loader:last-modified"   // and macro definitions. This can lead to performance improvements.
     // "-P:silencer:pathFilters=src_managed"     // Allows you to suppress compiler warnings. It supports filtering files by path.
   )
 }

@@ -1,7 +1,7 @@
 import sbtprotoc.ProtocPlugin.ProtobufConfig
 
 val projectName    = "CertVerifyPlatform"
-val projectVersion = "1.0.0"
+val projectVersion = "1.1.0"
 
 def scalaFixSettings = Seq(
   semanticdbEnabled := true,
@@ -39,7 +39,6 @@ lazy val root = (project in file("."))
     scalaVersion := Dependencies.Version.scala,
     libraryDependencies ++= Dependencies.globalProjectDependencies,
     Compile / scalacOptions ++= Settings.compilerOptions,
-    Compile / console / scalacOptions --= Seq("-Xlint"),
     scalafmtSettings,
     scalaFixSettings,
     ProtobufConfig / javaSource := ((Compile / sourceDirectory).value / "generated")

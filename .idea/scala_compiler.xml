@@ -75,7 +75,6 @@
         <parameter value="-Xlint:type-parameter-shadow" />
         <parameter value="-Ywarn-dead-code" />
         <parameter value="-Ywarn-extra-implicit" />
-        <parameter value="-Wunused:imports" />
         <parameter value="-Ybackend-parallelism" />
         <parameter value="8" />
         <parameter value="-Ycache-plugin-class-loader:last-modified" />

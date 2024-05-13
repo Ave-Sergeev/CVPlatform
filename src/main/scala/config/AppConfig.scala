@@ -17,7 +17,8 @@ case class Liquibase(changeLog: String)
 
 case class Interface(
     httpPort: Int,
-    grpcPort: Int
+    grpcPort: Int,
+    maxInboundMessage: Long
 )
 
 case class BasicAuth(

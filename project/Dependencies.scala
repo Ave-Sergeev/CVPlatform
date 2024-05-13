@@ -16,20 +16,22 @@ object Dependencies {
     val quill        = "4.8.3"
     val postgre      = "42.7.3"
     val sl4j         = "2.0.12"
-    val grpc         = "1.61.0"
+    val grpc         = "1.62.2"
     val logback      = "1.5.6"
     val scalaLogging = "3.9.5"
     val liquibase    = "3.4.2"
+    val silencer     = "1.7.14"
   }
 
   object ZIO {
-    lazy val core          = "dev.zio" %% "zio"                % Version.zio
-    lazy val macros        = "dev.zio" %% "zio-macros"         % Version.zio
-    lazy val json          = "dev.zio" %% "zio-json"           % Version.zioJson
-    lazy val schema        = "dev.zio" %% "zio-schema"         % Version.zioSchema
-    lazy val schemaJson    = "dev.zio" %% "zio-schema-json"    % Version.zioSchema
-    lazy val redis         = "dev.zio" %% "zio-redis"          % Version.zioRedis
-    lazy val redisEmbedded = "dev.zio" %% "zio-redis-embedded" % Version.zioRedis
+    lazy val core          = "dev.zio" %% "zio"                 % Version.zio
+    lazy val macros        = "dev.zio" %% "zio-macros"          % Version.zio
+    lazy val json          = "dev.zio" %% "zio-json"            % Version.zioJson
+    lazy val redis         = "dev.zio" %% "zio-redis"           % Version.zioRedis
+    lazy val redisEmbedded = "dev.zio" %% "zio-redis-embedded"  % Version.zioRedis
+    lazy val schema        = "dev.zio" %% "zio-schema"          % Version.zioSchema
+    lazy val schemaJson    = "dev.zio" %% "zio-schema-json"     % Version.zioSchema
+    lazy val schemaPb      = "dev.zio" %% "zio-schema-protobuf" % Version.zioSchema
   }
 
   object HTTP {
@@ -60,7 +62,7 @@ object Dependencies {
 
   object GRPC {
     lazy val core           = "com.thesamet.scalapb"               %% "scalapb-runtime-grpc"                    % scalapb.compiler.Version.scalapbVersion
-    lazy val grpcNetty      = "io.grpc"                             % "grpc-netty-shaded"                       % Version.grpc
+    lazy val grpcNetty      = "io.grpc"                             % "grpc-netty"                              % Version.grpc
     lazy val grpclb         = "io.grpc"                             % "grpc-grpclb"                             % Version.grpc
     lazy val annotation     = "com.thesamet.scalapb"               %% "scalapb-runtime"                         % scalapb.compiler.Version.scalapbVersion % "protobuf"
     lazy val commonProtos   = "com.thesamet.scalapb.common-protos" %% "proto-google-common-protos-scalapb_0.11" % "2.9.6-0"
@@ -73,6 +75,7 @@ object Dependencies {
     ZIO.redis,
     ZIO.macros,
     ZIO.schema,
+    ZIO.schemaPb,
     ZIO.schemaJson,
     ZIO.redisEmbedded,
     GRPC.core,

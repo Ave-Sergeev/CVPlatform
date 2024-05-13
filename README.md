@@ -8,7 +8,3 @@ The project uses:
 3) Logging (via ZIO-Logging + SLF4J2)
 4) Working with the database (via ZIO-Quill)
 5) Working with Redis (via ZIO-Redis)
-
-Planned to add:
-1) Adding the ability to work via gRPC API
-2) Carrying out requests through Handler with error handling + metrics + logging (via ZIO-Aspect + Metrics)
