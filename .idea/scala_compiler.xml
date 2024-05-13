@@ -57,7 +57,6 @@
         <parameter value="-encoding" />
         <parameter value="UTF-8" />
         <parameter value="-Xcheckinit" />
-        <parameter value="-Xfatal-warnings" />
         <parameter value="-Ymacro-annotations" />
         <parameter value="-Xlint:_,-byname-implicit" />
         <parameter value="-Xlint:adapted-args" />
@@ -76,8 +75,7 @@
         <parameter value="-Xlint:type-parameter-shadow" />
         <parameter value="-Ywarn-dead-code" />
         <parameter value="-Ywarn-extra-implicit" />
-        <parameter value="-Ywarn-unused:implicits" />
-        <parameter value="-Ywarn-unused:privates" />
+        <parameter value="-Wunused:imports" />
         <parameter value="-Ybackend-parallelism" />
         <parameter value="8" />
         <parameter value="-Ycache-plugin-class-loader:last-modified" />

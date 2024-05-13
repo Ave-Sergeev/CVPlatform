@@ -16,6 +16,7 @@ object Dependencies {
     val quill        = "4.8.3"
     val postgre      = "42.7.3"
     val sl4j         = "2.0.12"
+    val grpc         = "1.61.0"
     val logback      = "1.5.6"
     val scalaLogging = "3.9.5"
     val liquibase    = "3.4.2"
@@ -57,25 +58,40 @@ object Dependencies {
     lazy val zioLoggingLf4j = "dev.zio"                    %% "zio-logging-slf4j2" % Version.zioLogging
   }
 
+  object GRPC {
+    lazy val core           = "com.thesamet.scalapb"               %% "scalapb-runtime-grpc"                    % scalapb.compiler.Version.scalapbVersion
+    lazy val grpcNetty      = "io.grpc"                             % "grpc-netty-shaded"                       % Version.grpc
+    lazy val grpclb         = "io.grpc"                             % "grpc-grpclb"                             % Version.grpc
+    lazy val annotation     = "com.thesamet.scalapb"               %% "scalapb-runtime"                         % scalapb.compiler.Version.scalapbVersion % "protobuf"
+    lazy val commonProtos   = "com.thesamet.scalapb.common-protos" %% "proto-google-common-protos-scalapb_0.11" % "2.9.6-0"
+    lazy val commonProtosPb = "com.thesamet.scalapb.common-protos" %% "proto-google-common-protos-scalapb_0.11" % "2.9.6-0"                               % "protobuf"
+  }
+
   lazy val globalProjectDependencies = Seq(
     ZIO.core,
     ZIO.json,
+    ZIO.redis,
     ZIO.macros,
     ZIO.schema,
     ZIO.schemaJson,
-    ZIO.redis,
     ZIO.redisEmbedded,
+    GRPC.core,
+    GRPC.grpclb,
+    GRPC.grpcNetty,
+    GRPC.annotation,
+    GRPC.commonProtos,
+    GRPC.commonProtosPb,
     LOGS.core,
     LOGS.sl4j,
-    LOGS.scalaLogging,
     LOGS.zioLogging,
+    LOGS.scalaLogging,
     LOGS.zioLoggingLf4j,
     HTTP.zhttp,
     HTTP.httpNetty,
     CONFIG.core,
-    CONFIG.magnolia,
-    CONFIG.typesafe,
     CONFIG.refined,
+    CONFIG.typesafe,
+    CONFIG.magnolia,
     STORAGE.quill,
     STORAGE.postgre,
     STORAGE.liquibase

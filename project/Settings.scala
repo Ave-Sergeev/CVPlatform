@@ -1,7 +1,7 @@
 object Settings {
   val compilerOptions = Seq(
     "-deprecation",                  // Emit warning and location for usages of deprecated APIs.
-    "-encoding",                     //
+    "-encoding",                     // Encoding value
     "UTF-8",                         // Specify character encoding used by source files.
     "-explaintypes",                 // Explain type errors in more detail.
     "-feature",                      // Emit warning and location for usages of features that should be imported explicitly.
@@ -11,9 +11,9 @@ object Settings {
     "-language:implicitConversions", // Allow definition of implicit functions called views
     "-unchecked",                    // Enable additional warnings where generated code depends on assumptions.
     "-Xcheckinit",                   // Wrap field accessors to throw an exception on uninitialized access.
-    "-Xfatal-warnings",              // Fail the compilation if there are any warnings.
-    "-Ymacro-annotations",
-    "-Xlint:_,-byname-implicit",
+    // "-Xfatal-warnings",           // Fail the compilation if there are any warnings.
+    "-Ymacro-annotations",           // For annotation
+    "-Xlint:_,-byname-implicit",     // For implicits
     "-Xlint:adapted-args",           // Warn if an argument list is modified to match the receiver.
     "-Xlint:constant",               // Evaluation of a constant arithmetic expression results in an error.
     "-Xlint:delayedinit-select",     // Selecting member of DelayedInit.
@@ -30,11 +30,14 @@ object Settings {
     "-Xlint:type-parameter-shadow",  // A local type parameter shadows a type already in scope.
     "-Ywarn-dead-code",              // Warn when dead code is identified.
     "-Ywarn-extra-implicit",         // Warn when more than one implicit parameter section is defined.
-    "-Ywarn-unused:implicits",       // Warn if an implicit parameter is unused.
-    "-Ywarn-unused:privates",        // Warn if a private member is unused.
-    "-Ybackend-parallelism",
+    // "-Ywarn-numeric-widen",       // Warn when numerics are widened.
+    // "-Ywarn-unused:implicits",    // Warn if an implicit parameter is unused.
+    // "-Ywarn-unused:privates",     // Warn if a private member is unused.
+    "-Wunused:imports",                          // Warn if an import selector is not referenced.
+    "-Ybackend-parallelism",                     // Enables parallelization of only the last phase of the compiler pipeline, that is, bytecode emission.
     "8",                                         // Enable parallelization — change to desired number!
     "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
-    "-Ycache-macro-class-loader:last-modified"   // and macro definitions. This can lead to performance improvements.
+    "-Ycache-macro-class-loader:last-modified",  // and macro definitions. This can lead to performance improvements.
+    // "-P:silencer:pathFilters=src_managed"     // Allows you to suppress compiler warnings. It supports filtering files by path.
   )
 }
