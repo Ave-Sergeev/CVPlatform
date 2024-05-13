@@ -1,4 +1,4 @@
-package http.api
+package http.endpoints
 
 import zio.http._
 

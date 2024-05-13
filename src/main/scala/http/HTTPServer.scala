@@ -2,7 +2,7 @@ package http
 
 import auth.AuthService
 import config.AppConfig
-import http.api.{Health, Profile}
+import http.endpoints.{Health, Profile}
 import storage.postgres.ProfileRepository
 import zio.http.Server
 import zio.http.netty.NettyConfig
