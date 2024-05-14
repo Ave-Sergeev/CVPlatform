@@ -1,24 +1,36 @@
 package grpc
 
 import auth.AuthService
+import auth.models._
 import io.grpc.{Status, StatusException}
 import scalapb.zio_grpc.RequestContext
-import zio.{IO, ZEnvironment, ZIO}
+import util.ULID
+import zio.{IO, Scope, ZEnvironment, ZIO, ZIOAspect}
 
 package object service {
-  def handleRPC[R, E <: Throwable, A](rc: RequestContext)(
+
+  def handleRPC[R, E <: Throwable, A](context: RequestContext)(
       func: ZIO[R, E, A]
-  )(implicit env: ZEnvironment[R with AuthService]): IO[StatusException, A] =
+  )(implicit env: ZEnvironment[R with AuthService with Scope]): IO[StatusException, A] =
     (
       for {
-        // TODO: Добавить auth + annotation + metrics
-//        traceId = UUID.randomUUID.toString
-//        methodName = rc.methodDescriptor.getBareMethodName
-//        annotations = ZIOAspect.annotated(
-//          "method" -> methodName,
-//          "traceId" -> traceId,
-//        )
-        result <- func.mapError(err => Status.fromThrowable(err).asException)
+        authResult <- AuthService
+          .validateContext(context)
+          .mapError(err => new StatusException(Status.UNAUTHENTICATED.withDescription(err.getMessage)))
+          .logError("Unauthorized")
+        traceId <- ULID.nextULIDString
+        methodName = context.methodDescriptor.getBareMethodName
+        annotations = ZIOAspect.annotated(
+          "user"    -> authResult.username,
+          "method"  -> methodName,
+          "traceId" -> traceId
+        )
+        result <- authResult match {
+          case ValidAuthResult(_, _) =>
+            func.mapError(err => Status.fromThrowable(err).asException) @@ annotations <* ZIO.logInfo("Authorization passed") @@ annotations
+          case InvalidAuthResult(_) =>
+            ZIO.fail(Status.UNAUTHENTICATED.asException)
+        }
       } yield result
     )
       .provideEnvironment(env)

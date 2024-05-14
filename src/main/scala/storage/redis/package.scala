@@ -1,13 +1,13 @@
 package storage
 
 import config.AppConfig
+import util.Secret.SecretOps
 import zio.redis._
 import zio.schema.Schema
 import zio.schema.codec.{BinaryCodec, JsonCodec, ProtobufCodec}
 import zio.{redis, ULayer, ZEnvironment, ZIO, ZLayer}
 
 package object redis {
-  import util._
 
   private def redisConnection: ZLayer[CodecSupplier with AppConfig, RedisError, Redis] =
     ZLayer

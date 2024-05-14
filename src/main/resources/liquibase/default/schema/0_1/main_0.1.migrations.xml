@@ -9,7 +9,7 @@
     <changeSet id="create Profile table" author="Sergeev Artem">
         <createTable tableName="profile">
             <column name="id" type="uuid">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints primaryKey="false" nullable="false"/>
             </column>
             <column name="name" type="varchar(50)">
                 <constraints nullable="false"/>

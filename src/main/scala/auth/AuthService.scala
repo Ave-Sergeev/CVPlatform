@@ -1,15 +1,20 @@
 package auth
 
 import auth.keycloak.KeycloakAuthorizer
-import zio.http.{Client, Request, Response}
+import auth.models.AuthResult
+import scalapb.zio_grpc.RequestContext
+import zio.http.{Client, Request}
 import zio.macros.{accessible, throwing}
 import zio.redis.Redis
-import zio.{Config, Scope, ZIO, ZLayer}
+import zio.{Config, RIO, Scope, ZLayer}
 
 @accessible
 trait AuthService {
   @throwing
-  def validateAuth(request: Request): ZIO[Scope, Response, Boolean]
+  def validateHeader(request: Request): RIO[Scope, AuthResult]
+
+  @throwing
+  def validateContext(request: RequestContext): RIO[Scope, AuthResult]
 }
 
 object AuthService {

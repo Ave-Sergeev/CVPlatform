@@ -3,6 +3,7 @@ package auth.keycloak
 import auth.models.{IntrospectResponse, User, UserInfo}
 import config.{AppConfig, Keycloak}
 import exception.Exceptions._
+import util.Secret.SecretOps
 import zio.http.{Body, Client, Form, Header}
 import zio.json.DecoderOps
 import zio.redis.Redis
@@ -37,7 +38,6 @@ case class KeycloakAuthorizerLive(
   }
 
   def introspectToken(token: String): RIO[Scope, IntrospectResponse] = {
-    import util._
 
     val pathSuffix = s"/realms/${config.realm}/protocol/openid-connect/token/introspect"
     val body = Body.fromURLEncodedForm(

@@ -1,11 +1,10 @@
 package http.endpoints
 
 import auth.AuthService
-import http.handlers.ExceptionHandler.exceptionHandler
+import http.handlers._
 import service.profile.ProfileService
 import storage.postgres.ProfileRepository
 import zio.Scope
-import zio.http.Middleware._
 import zio.http._
 
 import java.util.UUID
@@ -13,22 +12,32 @@ import java.util.UUID
 object Profile {
   def routes: HttpApp[AuthService with Scope with ProfileRepository] =
     Routes(
-      Method.GET / "profile" -> handler {
-        ProfileService.getAllProfiles
+      Method.GET / "profile" -> handler { request: Request =>
+        handleREST(request) {
+          ProfileService.getAllProfiles
+        }
       },
-      Method.GET / "profile" / uuid("id") -> handler { (id: UUID, _: Request) =>
-        ProfileService.getProfileById(id)
+      Method.GET / "profile" / uuid("id") -> handler { (id: UUID, request: Request) =>
+        handleREST(request) {
+          ProfileService.getProfileById(id)
+        }
       },
-      Method.POST / "profile" -> handler { req: Request =>
-        ProfileService.addProfile(req)
+      Method.POST / "profile" -> handler { request: Request =>
+        handleREST(request) {
+          ProfileService.addProfile(request)
+        }
       },
-      Method.PUT / "profile" -> handler { req: Request =>
-        ProfileService.updateProfile(req)
+      Method.PUT / "profile" -> handler { request: Request =>
+        handleREST(request) {
+          ProfileService.updateProfile(request)
+        }
       },
-      Method.DELETE / "profile" / uuid("id") -> handler { (id: UUID, _: Request) =>
-        ProfileService.deleteProfileById(id)
+      Method.DELETE / "profile" / uuid("id") -> handler { (id: UUID, request: Request) =>
+        handleREST(request) {
+          ProfileService.deleteProfileById(id)
+        }
       }
     )
       .handleError(exceptionHandler)
-      .toHttpApp @@ customAuthZIO(AuthService.validateAuth)
+      .toHttpApp
 }

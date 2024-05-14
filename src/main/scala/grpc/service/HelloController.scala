@@ -2,26 +2,61 @@ package grpc.service
 
 import com.google.protobuf.empty.Empty
 import cvpservice.CVPServiceEnv
-import hello.ZioHello.RCProfileService
-import hello.{ProfileResponse, UserProfile}
 import io.grpc.StatusException
+import profile_service.ZioProfileService.RCProfileService
+import profile_service._
 import scalapb.zio_grpc.RequestContext
+import service.models.Profile
 import storage.postgres.ProfileRepository
 import zio.{IO, URIO, ZEnvironment, ZIO}
+
+import java.util.UUID
 
 final case class HelloController(
     repository: ProfileRepository
 )(
     implicit env: ZEnvironment[CVPServiceEnv]
 ) extends RCProfileService {
-  override def getAllProfile(request: Empty, context: RequestContext): IO[StatusException, ProfileResponse] =
+
+  override def getAllProfile(request: Empty, context: RequestContext): IO[StatusException, AllProfiles] =
     handleRPC(context) {
       repository.getAll
-        .map { response =>
-          ProfileResponse(
-            response.map(profile => UserProfile(profile.id.toString, profile.name, profile.link))
-          )
-        }
+        .map(response => AllProfiles(response.map(profile => UserProfile(profile.id.toString, profile.name, profile.link))))
+    }
+
+  override def getProfile(request: ProfileId, context: RequestContext): IO[StatusException, UserProfile] =
+    handleRPC(context) {
+      import util.ULID.stringToUUID
+
+      repository
+        .getById(request.uuid)
+        .map(response => UserProfile(response.id.toString, response.name, response.link))
+    }
+
+  override def addProfile(request: UserProfile, context: RequestContext): IO[StatusException, ProfileId] =
+    handleRPC(context) {
+      import util.ULID.stringToUUID
+
+      repository
+        .insert(Profile(request.id, request.name, request.link))
+        .as(ProfileId(request.id))
+    }
+
+  override def updateProfile(request: UserProfile, context: RequestContext): IO[StatusException, ProfileId] =
+    handleRPC(context) {
+      import util.ULID.stringToUUID
+
+      repository
+        .update(Profile(request.id, request.name, request.link))
+        .tapError(err => ZIO.logInfo(s"err: $err"))
+        .as(ProfileId(request.id))
+    }
+
+  override def deleteProfileById(request: ProfileId, context: RequestContext): IO[StatusException, Empty] =
+    handleRPC(context) {
+      repository
+        .deleteById(UUID.fromString(request.uuid))
+        .as(Empty())
     }
 }
 

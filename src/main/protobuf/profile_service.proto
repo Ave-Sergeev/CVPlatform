@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+service ProfileService {
+  rpc GetProfile (ProfileId) returns (UserProfile) {}
+  rpc GetAllProfile (google.protobuf.Empty) returns (AllProfiles) {}
+  rpc AddProfile (UserProfile) returns (ProfileId) {}
+  rpc UpdateProfile (UserProfile) returns (ProfileId) {}
+  rpc DeleteProfileById (ProfileId) returns (google.protobuf.Empty) {}
+}
+
+message ProfileId {
+  string uuid = 1;
+}
+
+message UserProfile {
+  string id = 1;
+  string name = 2;
+  string link = 3;
+}
+
+message AllProfiles {
+  repeated UserProfile profiles = 1;
+}

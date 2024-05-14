@@ -16,6 +16,7 @@ object Dependencies {
     val quill        = "4.8.3"
     val postgre      = "42.7.3"
     val sl4j         = "2.0.12"
+    val ulid         = "24.5.0"
     val grpc         = "1.62.2"
     val logback      = "1.5.6"
     val scalaLogging = "3.9.5"
@@ -69,6 +70,10 @@ object Dependencies {
     lazy val commonProtosPb = "com.thesamet.scalapb.common-protos" %% "proto-google-common-protos-scalapb_0.11" % "2.9.6-0"                               % "protobuf"
   }
 
+  object UTILS {
+    lazy val ulid = "org.wvlet.airframe" %% "airframe-ulid" % Version.ulid
+  }
+
   lazy val globalProjectDependencies = Seq(
     ZIO.core,
     ZIO.json,
@@ -91,6 +96,7 @@ object Dependencies {
     LOGS.zioLoggingLf4j,
     HTTP.zhttp,
     HTTP.httpNetty,
+    UTILS.ulid,
     CONFIG.core,
     CONFIG.refined,
     CONFIG.typesafe,
