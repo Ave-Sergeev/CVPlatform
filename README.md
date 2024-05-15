@@ -1,4 +1,4 @@
-# CertVerifyPlatform
+# CVPlatform
 Preparing a project for MVP. Technologies are tested there for further use.
 At this point, the core logic has been replaced with a simple CRUD for the user profile.
 
