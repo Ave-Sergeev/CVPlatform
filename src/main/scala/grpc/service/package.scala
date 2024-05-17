@@ -3,6 +3,7 @@ package grpc
 import auth.AuthService
 import auth.models._
 import io.grpc.{Status, StatusException}
+import metrics.Counters.{countFailedGrpcRequests, countSuccessfulGrpcRequests}
 import scalapb.zio_grpc.RequestContext
 import util.ULID
 import zio.{IO, Scope, ZEnvironment, ZIO, ZIOAspect}
@@ -28,7 +29,11 @@ package object service {
         result <- authResult match {
           case ValidAuthResult(_, _) =>
             // TODO: You can add role checking if needed.
-            effect.mapError(err => Status.fromThrowable(err).asException) @@ annotations <* ZIO.logInfo("Authorization passed") @@ annotations
+            effect
+              .mapError(err => Status.fromThrowable(err).asException) @@
+              countSuccessfulGrpcRequests(methodName) @@
+              countFailedGrpcRequests(methodName) @@
+              annotations <* ZIO.logInfo("Authorization passed") @@ annotations
           case InvalidAuthResult(_) =>
             ZIO.fail(Status.UNAUTHENTICATED.asException)
         }

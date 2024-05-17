@@ -13,27 +13,27 @@ object Profile {
   def routes: HttpApp[AuthService with Scope with ProfileRepository] =
     Routes(
       Method.GET / "profile" -> handler { request: Request =>
-        handleREST(request) {
+        handleREST("GET /profile", request) {
           ProfileService.getAllProfiles
         }
       },
       Method.GET / "profile" / uuid("id") -> handler { (id: UUID, request: Request) =>
-        handleREST(request) {
+        handleREST("GET /profile/:id", request) {
           ProfileService.getProfileById(id)
         }
       },
       Method.POST / "profile" -> handler { request: Request =>
-        handleREST(request) {
+        handleREST("POST /profile", request) {
           ProfileService.addProfile(request)
         }
       },
       Method.PUT / "profile" -> handler { request: Request =>
-        handleREST(request) {
+        handleREST("PUT /profile", request) {
           ProfileService.updateProfile(request)
         }
       },
       Method.DELETE / "profile" / uuid("id") -> handler { (id: UUID, request: Request) =>
-        handleREST(request) {
+        handleREST("DELETE /profile/:id", request) {
           ProfileService.deleteProfileById(id)
         }
       }

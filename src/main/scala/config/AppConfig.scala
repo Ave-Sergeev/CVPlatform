@@ -10,10 +10,13 @@ case class AppConfig(
     basicAuth: BasicAuth,
     redis: Redis,
     liquibase: Liquibase,
-    keycloak: Keycloak
+    keycloak: Keycloak,
+    metrics: Metrics
 )
 
 case class Liquibase(changeLog: String)
+
+case class Metrics(intervalMillis: Int)
 
 case class Interface(
     httpPort: Int,
@@ -41,7 +44,8 @@ object AppConfig {
         deriveConfig[BasicAuth].nested("basicAuth") zip
         deriveConfig[Redis].nested("redis") zip
         deriveConfig[Liquibase].nested("liquibase") zip
-        deriveConfig[Keycloak].nested("keycloak")
+        deriveConfig[Keycloak].nested("keycloak") zip
+        deriveConfig[Metrics].nested("metrics")
     )
       .to[AppConfig]
       .mapKey(toKebabCase)

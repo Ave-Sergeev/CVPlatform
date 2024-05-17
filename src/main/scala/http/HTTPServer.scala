@@ -1,19 +1,19 @@
 package http
 
-import auth.AuthService
 import config.AppConfig
+import cvpservice.CVPServiceEnv
 import http.endpoints.{Health, Profile}
-import storage.postgres.ProfileRepository
+import metrics.PrometheusMetricsPublisher
 import zio.http.Server
 import zio.http.netty.NettyConfig
 import zio.http.netty.NettyConfig.LeakDetectionLevel
-import zio.{RLayer, Scope, URIO, ZLayer}
+import zio.{RLayer, URIO, ZLayer}
 
 object HTTPServer {
 
-  private val allRoutes = Health.routes ++ Profile.routes
+  private val allRoutes = Health.routes ++ Profile.routes ++ PrometheusMetricsPublisher.routes
 
-  def start: URIO[AuthService with Scope with ProfileRepository with Server, Nothing] = Server.serve(allRoutes)
+  def start: URIO[CVPServiceEnv, Nothing] = Server.serve(allRoutes)
 
   private val nettyConfigLayer = ZLayer.succeed(
     NettyConfig.default

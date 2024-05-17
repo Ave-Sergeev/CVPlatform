@@ -5,6 +5,7 @@ import storage.liquibase.LiquibaseService
 import storage.postgres.ProfileRepository
 import zio.Scope
 import zio.http.{Client, Server}
+import zio.metrics.connectors.prometheus.PrometheusPublisher
 
 package object cvpservice {
 
@@ -15,6 +16,7 @@ package object cvpservice {
       with AuthService
       with LiquibaseService
       with ProfileRepository
+      with PrometheusPublisher
 
   type CVPServiceEnv = Scope with Client with ServiceEnv
 }

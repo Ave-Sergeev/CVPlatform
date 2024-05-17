@@ -3,6 +3,7 @@ package http
 import auth.AuthService
 import auth.models._
 import exception.Exceptions._
+import metrics.Counters.countRESTRequests
 import util.ULID
 import zio.http.{Request, Response}
 import zio.{RIO, Scope, ZIO, ZIOAspect}
@@ -10,10 +11,13 @@ import zio.{RIO, Scope, ZIO, ZIOAspect}
 package object handlers {
 
   def handleREST[R, E <: Throwable, A](
+      path: String,
       request: Request
   )(
       effect: ZIO[R, E, A]
   ): RIO[R with AuthService with Scope, A] = {
+    val path = s"${request.method} ${request.url.path}"
+
     for {
       authResult <- AuthService
         .validateHeader(request)
@@ -21,7 +25,7 @@ package object handlers {
       traceId <- ULID.nextULIDString
       annotations = ZIOAspect.annotated(
         "user"    -> authResult.username,
-        "method"  -> s"${request.method} ${request.url.path}",
+        "method"  -> path,
         "traceId" -> traceId
       )
       result <- authResult match {
@@ -32,7 +36,7 @@ package object handlers {
           ZIO.fail(InvalidCredentialsException(""))
       }
     } yield result
-  }
+  } @@ countRESTRequests(path)
 
   val exceptionHandler: Throwable => Response = {
     case err: UnsupportedFeatureException => Response.internalServerError(s"Exception: $err")
