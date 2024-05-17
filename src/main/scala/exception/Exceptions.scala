@@ -15,5 +15,7 @@ object Exceptions {
 
   case class InvalidCredentialsException(message: String) extends CustomException(message)
 
+  case class UnexpectedParametersException(message: String) extends CustomException(message)
+
   case class AuthException(message: String) extends CustomException(message)
 }

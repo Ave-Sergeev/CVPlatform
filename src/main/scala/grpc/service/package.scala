@@ -10,7 +10,7 @@ import zio.{IO, Scope, ZEnvironment, ZIO, ZIOAspect}
 package object service {
 
   def handleRPC[R, E <: Throwable, A](context: RequestContext)(
-      func: ZIO[R, E, A]
+      effect: ZIO[R, E, A]
   )(implicit env: ZEnvironment[R with AuthService with Scope]): IO[StatusException, A] =
     (
       for {
@@ -27,7 +27,8 @@ package object service {
         )
         result <- authResult match {
           case ValidAuthResult(_, _) =>
-            func.mapError(err => Status.fromThrowable(err).asException) @@ annotations <* ZIO.logInfo("Authorization passed") @@ annotations
+            // TODO: You can add role checking if needed.
+            effect.mapError(err => Status.fromThrowable(err).asException) @@ annotations <* ZIO.logInfo("Authorization passed") @@ annotations
           case InvalidAuthResult(_) =>
             ZIO.fail(Status.UNAUTHENTICATED.asException)
         }

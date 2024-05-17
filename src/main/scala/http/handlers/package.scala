@@ -12,11 +12,13 @@ package object handlers {
   def handleREST[R, E <: Throwable, A](
       request: Request
   )(
-      func: ZIO[R, E, A]
+      effect: ZIO[R, E, A]
   ): RIO[R with AuthService with Scope, A] = {
     for {
-      authResult <- AuthService.validateHeader(request).logError("Unauthorized")
-      traceId    <- ULID.nextULIDString
+      authResult <- AuthService
+        .validateHeader(request)
+        .logError("Unauthorized")
+      traceId <- ULID.nextULIDString
       annotations = ZIOAspect.annotated(
         "user"    -> authResult.username,
         "method"  -> s"${request.method} ${request.url.path}",
@@ -24,7 +26,8 @@ package object handlers {
       )
       result <- authResult match {
         case ValidAuthResult(_, _) =>
-          func.tapError(err => ZIO.logError(err.getMessage)) @@ annotations <* ZIO.logInfo("Authorization passed") @@ annotations
+          // TODO: You can add role checking if needed.
+          effect.tapError(err => ZIO.logError(err.getMessage)) @@ annotations <* ZIO.logInfo("Authorization passed") @@ annotations
         case InvalidAuthResult(_) =>
           ZIO.fail(InvalidCredentialsException(""))
       }

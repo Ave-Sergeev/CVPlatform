@@ -1,11 +1,11 @@
 package service.profile
 
-import exception.Exceptions._
 import service.models.Profile
 import storage.postgres.ProfileRepository
+import util.parse.JsonParseOps.bodyParse
+import zio.RIO
 import zio.http.{Request, Response}
-import zio.json.{EncoderOps, JsonDecoder}
-import zio.{RIO, ZIO}
+import zio.json.EncoderOps
 
 import java.util.UUID
 
@@ -18,20 +18,16 @@ object ProfileService {
 
   def addProfile(req: Request): RIO[ProfileRepository, Response] =
     for {
-      body <- req.body.asString
-      profile <- ZIO
-        .fromEither(JsonDecoder[Profile].decodeJson(body))
-        .orElseFail(BodyParsingException("Fail to decode json"))
-      result <- ProfileRepository.insert(profile)
+      body    <- req.body.asString
+      profile <- bodyParse[Profile](body)
+      result  <- ProfileRepository.insert(profile)
     } yield Response.json(result.toJson)
 
   def updateProfile(req: Request): RIO[ProfileRepository, Response] =
     for {
-      body <- req.body.asString
-      profile <- ZIO
-        .fromEither(JsonDecoder[Profile].decodeJson(body))
-        .orElseFail(BodyParsingException("Fail to decode json"))
-      result <- ProfileRepository.update(profile)
+      body    <- req.body.asString
+      profile <- bodyParse[Profile](body)
+      result  <- ProfileRepository.update(profile)
     } yield Response.json(result.toJson)
 
   def deleteProfileById(id: UUID): RIO[ProfileRepository, Response] =

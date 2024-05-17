@@ -42,7 +42,7 @@
         <parameter value="-Ycache-macro-class-loader:last-modified" />
       </parameters>
     </profile>
-    <profile name="sbt 3" modules="WorkProject.CertVerifyPlatform">
+    <profile name="sbt 3" modules="CVPlatform,WorkProject.CertVerifyPlatform,andreilunev.WorkProject.CertVerifyPlatform">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />

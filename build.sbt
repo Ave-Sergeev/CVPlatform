@@ -1,7 +1,7 @@
 import sbtprotoc.ProtocPlugin.ProtobufConfig
 
-val projectName    = "CertVerifyPlatform"
-val projectVersion = "1.1.0"
+val projectName    = "CVPlatform"
+val projectVersion = "1.1.1"
 
 def scalaFixSettings = Seq(
   semanticdbEnabled := true,

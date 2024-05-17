@@ -1,15 +1,2 @@
-[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:25:11: SELECT x.id, x.name, x.link FROM profile x[0m
-[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema)[0m
-[0m[[0m[0minfo[0m] [0m[0m          ^[0m
-[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:31:11: SELECT x1.id, x1.name, x1.link FROM profile x1 WHERE x1.id = ?[0m
-[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.filter(_.id == lift(id)))[0m
-[0m[[0m[0minfo[0m] [0m[0m          ^[0m
-[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:42:11: INSERT INTO profile (id,name,link) VALUES (?, ?, ?) RETURNING id, name, link[0m
-[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.insertValue(lift(profile)).returning(value => value))[0m
-[0m[[0m[0minfo[0m] [0m[0m          ^[0m
-[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:51:11: UPDATE profile SET id = ?, name = ?, link = ? RETURNING id, name, link[0m
-[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.updateValue(lift(profile)).returning(value => value))[0m
-[0m[[0m[0minfo[0m] [0m[0m          ^[0m
-[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:60:11: DELETE FROM profile AS x3 WHERE x3.id = ?[0m
-[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.filter(_.id == lift(id)).delete)[0m
-[0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /Users/andreilunev/WorkProject/CertVerifyPlatform/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock ...[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /Users/andreilunev/WorkProject/CertVerifyPlatform/project/target/.sbt-compilation-infos/root-compile/.sbt-idea-lock.[0m

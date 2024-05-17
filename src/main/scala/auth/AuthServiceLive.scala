@@ -3,7 +3,7 @@ package auth
 import auth.keycloak.KeycloakAuthorizer
 import auth.models._
 import config.AppConfig
-import exception.Exceptions.AuthException
+import exception.Exceptions._
 import io.grpc.Metadata
 import scalapb.zio_grpc.RequestContext
 import util.Secret.SecretOps
@@ -49,7 +49,7 @@ case class AuthServiceLive(
           result   <- validateBasicAuth(authData)
         } yield result
       case s"Bearer $payload" => validateBearerAuth(payload)
-      case _                  => ZIO.fail(AuthException(s"Unexpected value"))
+      case _                  => ZIO.fail(UnexpectedParametersException(s"Unexpected value"))
     }
 
   private def validateBasicAuth(credentials: BasicAuthData): UIO[AuthResult] = {
@@ -89,12 +89,12 @@ case class AuthServiceLive(
   private def extractMetadata(context: RequestContext): Task[String] =
     context.metadata.get(authKey).flatMap {
       case Some(token) => ZIO.succeed(token)
-      case None        => ZIO.fail(AuthException(s"Unexpected value for Authorization field: $authKey"))
+      case None        => ZIO.fail(UnexpectedParametersException(s"Unexpected value for Authorization field: $authKey"))
     }
 
   private def fromPayloadString(payload: String): Task[BasicAuthData] = payload match {
     case s"$username:$password" => ZIO.succeed(BasicAuthData(username, password))
-    case unexpected             => ZIO.fail(AuthException(s"Unexpected value: $unexpected for Authorization: Basic"))
+    case unexpected             => ZIO.fail(UnexpectedParametersException(s"Unexpected value: $unexpected for Authorization: Basic"))
   }
 }
 
