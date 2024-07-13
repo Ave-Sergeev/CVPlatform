@@ -1,7 +1,25 @@
-[0m[[0m[33mwarn[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/src/main/scala/Main.scala:8:51: Unused import[0m
-[0m[[0m[33mwarn[0m] [0m[0mimport zio.config.typesafe.TypesafeConfigProvider.fromHoconString[0m
-[0m[[0m[33mwarn[0m] [0m[0m                                                  ^[0m
-[0m[[0m[33mwarn[0m] [0m[0m/Users/andreilunev/WorkProject/CertVerifyPlatform/target/scala-2.13/src_managed/main/grpc/health/ZioHealth.scala:4:28: type parameter Error defined in trait GHealth shadows type Error defined in package object scala. You may want to rename your type parameter, or possibly remove it.[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/src/main/scala/metrics/PrometheusMetricsPublisher.scala:4:57: Unused import[0m
+[0m[[0m[33mwarn[0m] [0m[0mimport zio.http.endpoint.openapi.OpenAPI.SecurityScheme.Http[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                                        ^[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:25:11: SELECT x.id, x.name, x.link FROM profile x[0m
+[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema)[0m
+[0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:31:11: SELECT x1.id, x1.name, x1.link FROM profile x1 WHERE x1.id = ?[0m
+[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.filter(_.id == lift(id)))[0m
+[0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:42:11: INSERT INTO profile (id,name,link) VALUES (?, ?, ?) RETURNING id, name, link[0m
+[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.insertValue(lift(profile)).returning(value => value))[0m
+[0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:51:11: UPDATE profile SET id = ?, name = ?, link = ? RETURNING id, name, link[0m
+[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.updateValue(lift(profile)).returning(value => value))[0m
+[0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[0minfo[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/src/main/scala/storage/postgres/ProfileRepositoryLive.scala:60:11: DELETE FROM profile AS x3 WHERE x3.id = ?[0m
+[0m[[0m[0minfo[0m] [0m[0m      .run(profileSchema.filter(_.id == lift(id)).delete)[0m
+[0m[[0m[0minfo[0m] [0m[0m          ^[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/target/scala-2.13/src_managed/main/grpc/health/ZioHealth.scala:4:28: type parameter Error defined in trait GHealth shadows type Error defined in package object scala. You may want to rename your type parameter, or possibly remove it.[0m
 [0m[[0m[33mwarn[0m] [0m[0m  trait GHealth[-Context, +Error] extends scalapb.zio_grpc.GenericGeneratedService[Context, Error, GHealth] {[0m
 [0m[[0m[33mwarn[0m] [0m[0m                           ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
+[0m[[0m[33mwarn[0m] [0m[0m/Users/andreilunev/WorkProject/CVPlatform/target/scala-2.13/src_managed/main/grpc/profile_service/ZioProfileService.scala:4:36: type parameter Error defined in trait GProfileService shadows type Error defined in package object scala. You may want to rename your type parameter, or possibly remove it.[0m
+[0m[[0m[33mwarn[0m] [0m[0m  trait GProfileService[-Context, +Error] extends scalapb.zio_grpc.GenericGeneratedService[Context, Error, GProfileService] {[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                   ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mthree warnings found[0m

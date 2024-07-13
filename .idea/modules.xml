@@ -6,7 +6,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CVPlatform-build.iml" filepath="$PROJECT_DIR$/.idea/modules/CVPlatform-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CertVerifyPlatform.iml" filepath="$PROJECT_DIR$/.idea/modules/CertVerifyPlatform.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CertVerifyPlatform-build.iml" filepath="$PROJECT_DIR$/.idea/modules/CertVerifyPlatform-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/WorkProject.CVPlatform.iml" filepath="$PROJECT_DIR$/.idea/modules/WorkProject.CVPlatform.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/WorkProject.CertVerifyPlatform.iml" filepath="$PROJECT_DIR$/.idea/modules/WorkProject.CertVerifyPlatform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project.CVPlatform-build.iml" filepath="$PROJECT_DIR$/.idea/modules/project.CVPlatform-build.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/project.CertVerifyPlatform-build.iml" filepath="$PROJECT_DIR$/.idea/modules/project.CertVerifyPlatform-build.iml" />
     </modules>
   </component>
