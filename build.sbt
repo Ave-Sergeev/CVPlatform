@@ -31,7 +31,7 @@ Compile / PB.protocVersion := "-v3.24.4"
 Test / PB.protoSources ++= (Compile / PB.protoSources).value
 
 lazy val root = (project in file("."))
-  .enablePlugins(ProtocPlugin)
+  .enablePlugins(ProtocPlugin, PackPlugin)
   .enablePlugins(ScalafixPlugin)
   .settings(
     name         := projectName,
