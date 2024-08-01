@@ -1,4 +1,4 @@
-package util
+package util.ulid
 
 import wvlet.airframe.ulid.ULID
 import zio.{IO, UIO, ZIO}

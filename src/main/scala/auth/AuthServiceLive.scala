@@ -6,7 +6,7 @@ import config.AppConfig
 import exception.Exceptions._
 import io.grpc.Metadata
 import scalapb.zio_grpc.RequestContext
-import util.Secret.SecretOps
+import util.secret.Secret.SecretOps
 import zio.http.Header.Authorization
 import zio.http.Request
 import zio.redis.Redis
@@ -99,7 +99,7 @@ case class AuthServiceLive(
 }
 
 object AuthServiceLive {
-  lazy val layer: ZLayer[KeycloakAuthorizer with Redis, Config.Error, AuthServiceLive] = ZLayer {
+  lazy val layer: ZLayer[KeycloakAuthorizer with Redis, Config.Error, AuthService] = ZLayer {
     for {
       config             <- AppConfig.get
       redis              <- ZIO.service[Redis]

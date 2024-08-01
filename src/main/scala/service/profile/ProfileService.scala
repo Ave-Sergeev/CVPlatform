@@ -10,6 +10,7 @@ import zio.json.EncoderOps
 import java.util.UUID
 
 object ProfileService {
+
   def getAllProfiles: RIO[ProfileRepository, Response] =
     ProfileRepository.getAll.map(result => Response.json(result.toJson))
 

@@ -1,7 +1,7 @@
 package storage
 
 import config.AppConfig
-import util.Secret.SecretOps
+import util.secret.Secret.SecretOps
 import zio.redis._
 import zio.schema.Schema
 import zio.schema.codec.{BinaryCodec, JsonCodec, ProtobufCodec}

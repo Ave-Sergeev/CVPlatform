@@ -10,6 +10,7 @@ import zio.http._
 import java.util.UUID
 
 object Profile {
+
   def routes: HttpApp[AuthService with Scope with ProfileRepository] =
     Routes(
       Method.GET / "profile" -> handler { request: Request =>

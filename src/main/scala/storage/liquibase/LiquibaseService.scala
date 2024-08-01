@@ -14,8 +14,6 @@ trait LiquibaseService {
 }
 
 object LiquibaseService {
-
-  val live: ULayer[LiquibaseService] = LiquibaseServiceLive.layer
-
+  val live: ULayer[LiquibaseService]                           = LiquibaseServiceLive.layer
   val liquibaseLayer: RLayer[Scope with DataSource, Liquibase] = LiquibaseServiceLive.liquibaseLayer
 }

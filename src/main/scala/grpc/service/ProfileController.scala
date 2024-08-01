@@ -11,7 +11,7 @@ import zio.{URIO, ZEnvironment, ZIO}
 
 import java.util.UUID
 
-final case class HelloController(
+final case class ProfileController(
     repository: ProfileRepository
 )(
     implicit env: ZEnvironment[CVPServiceEnv]
@@ -25,7 +25,7 @@ final case class HelloController(
 
   override def getProfile(request: ProfileId, context: RequestContext): GIO[UserProfile] =
     handleRPC(context) {
-      import util.ULID.stringToUUID
+      import util.ulid.ULID.stringToUUID
 
       repository
         .getById(request.uuid)
@@ -34,7 +34,7 @@ final case class HelloController(
 
   override def addProfile(request: UserProfile, context: RequestContext): GIO[ProfileId] =
     handleRPC(context) {
-      import util.ULID.stringToUUID
+      import util.ulid.ULID.stringToUUID
 
       repository
         .insert(Profile(request.id, request.name, request.link))
@@ -43,7 +43,7 @@ final case class HelloController(
 
   override def updateProfile(request: UserProfile, context: RequestContext): GIO[ProfileId] =
     handleRPC(context) {
-      import util.ULID.stringToUUID
+      import util.ulid.ULID.stringToUUID
 
       repository
         .update(Profile(request.id, request.name, request.link))
@@ -59,10 +59,10 @@ final case class HelloController(
     }
 }
 
-object HelloController {
-  def make: URIO[CVPServiceEnv, HelloController] =
+object ProfileController {
+  def make: URIO[CVPServiceEnv, ProfileController] =
     for {
       environment       <- ZIO.environment[CVPServiceEnv]
       profileRepository <- ZIO.service[ProfileRepository]
-    } yield HelloController(profileRepository)(environment)
+    } yield ProfileController(profileRepository)(environment)
 }

@@ -4,14 +4,14 @@ import auth.models.{IntrospectResponse, User}
 import zio.http.Client
 import zio.macros.{accessible, throwing}
 import zio.redis.Redis
-import zio.{Config, RIO, Scope, ZIO, ZLayer}
+import zio.{Config, RIO, Scope, ZLayer}
 
 @accessible
 trait KeycloakAuthorizer {
   @throwing
   def userInfo(token: String): RIO[Scope, User]
   @throwing
-  def introspectToken(token: String): ZIO[Scope, Throwable, IntrospectResponse]
+  def introspectToken(token: String): RIO[Scope, IntrospectResponse]
 }
 
 object KeycloakAuthorizer {

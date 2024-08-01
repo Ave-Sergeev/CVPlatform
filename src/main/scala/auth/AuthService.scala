@@ -12,7 +12,6 @@ import zio.{Config, RIO, Scope, ZLayer}
 trait AuthService {
   @throwing
   def validateHeader(request: Request): RIO[Scope, AuthResult]
-
   @throwing
   def validateContext(request: RequestContext): RIO[Scope, AuthResult]
 }

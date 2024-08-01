@@ -1,4 +1,4 @@
-package util
+package util.secret
 
 import zio.Config.Secret
 

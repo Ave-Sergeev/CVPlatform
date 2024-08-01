@@ -4,7 +4,7 @@ import auth.AuthService
 import auth.models._
 import exception.Exceptions._
 import metrics.Counters.countRESTRequests
-import util.ULID
+import util.ulid.ULID
 import zio.http.{Request, Response}
 import zio.{RIO, Scope, ZIO, ZIOAspect}
 

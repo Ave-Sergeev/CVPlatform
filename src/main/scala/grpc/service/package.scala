@@ -5,7 +5,7 @@ import auth.models._
 import io.grpc.{Status, StatusException}
 import metrics.Counters.{countFailedGrpcRequests, countSuccessfulGrpcRequests}
 import scalapb.zio_grpc.RequestContext
-import util.ULID
+import util.ulid.ULID
 import zio.{IO, Scope, ZEnvironment, ZIO, ZIOAspect}
 
 package object service {
