@@ -11,7 +11,7 @@ import java.util.UUID
 
 object Profile {
 
-  def routes: HttpApp[AuthService with Scope with ProfileRepository] =
+  def routes: Routes[ProfileRepository with AuthService with Scope, Nothing] =
     Routes(
       Method.GET / "profile" -> handler { request: Request =>
         handleREST("GET /profile", request) {
@@ -40,5 +40,4 @@ object Profile {
       }
     )
       .handleError(exceptionHandler)
-      .toHttpApp
 }

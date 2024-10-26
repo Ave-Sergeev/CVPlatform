@@ -17,5 +17,5 @@ trait ProfileRepository {
 }
 
 object ProfileRepository {
-  val live: URLayer[DataSource, ProfileRepositoryLive] = ProfileRepositoryLive.layer
+  val live: URLayer[DataSource, ProfileRepository] = ProfileRepositoryLive.layer
 }

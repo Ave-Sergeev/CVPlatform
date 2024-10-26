@@ -1,4 +1,4 @@
-# CVPlatform
+## CVPlatform
 Preparing a project for MVP. Technologies are tested there for further use.
 At this point, the core logic has been replaced with a simple CRUD for the user profile.
 
@@ -14,3 +14,12 @@ The project uses:
 9) Collecting metrics for Prometheus (via ZIO-Metrics)
 10) Using ULID as a more advanced and compatible analogue of UUID
 11) And other technologies from the ZIO stack
+
+### Local deployment
+
+To deploy the project locally, you need to
+1) Go to the `/docker` directory.
+2) Add your KeyCloak to the `docker-compose.yml` file (there is no configuration for it by default).
+3) Run containers of dependent services using the `docker compose up` command.
+4) Override Environment variables for the DB(PostgreSQL), Keycloak and Redis.
+5) Run the project from the `Main.scala` file.
