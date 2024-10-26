@@ -6,17 +6,21 @@ import zio.config.{toKebabCase, ConfigOps}
 import zio.{Config, IO, Layer, ZIO, ZLayer}
 
 case class AppConfig(
-    interface: Interface,
-    basicAuth: BasicAuth,
     redis: Redis,
-    liquibase: Liquibase,
+    metrics: Metrics,
     keycloak: Keycloak,
-    metrics: Metrics
+    liquibase: Liquibase,
+    interface: Interface,
+    basicAuth: BasicAuth
 )
 
-case class Liquibase(changeLog: String)
+case class Liquibase(
+    changeLog: String
+)
 
-case class Metrics(intervalMillis: Int)
+case class Metrics(
+    intervalMillis: Int
+)
 
 case class Interface(
     httpPort: Int,
@@ -36,26 +40,32 @@ case class Keycloak(
     clientSecret: Secret
 )
 
+case class Redis(
+    host: String,
+    port: Int,
+    username: Option[Secret],
+    secret: Secret,
+    databaseIndex: Int
+)
+
 object AppConfig {
 
-  implicit val configDescriptor: Config[AppConfig] = {
-    (
+  implicit val configDescriptor: Config[AppConfig] = (
+    deriveConfig[Redis].nested("redis") zip
+      deriveConfig[Metrics].nested("metrics") zip
+      deriveConfig[Keycloak].nested("keycloak") zip
+      deriveConfig[Liquibase].nested("liquibase") zip
       deriveConfig[Interface].nested("interface") zip
-        deriveConfig[BasicAuth].nested("basicAuth") zip
-        deriveConfig[Redis].nested("redis") zip
-        deriveConfig[Liquibase].nested("liquibase") zip
-        deriveConfig[Keycloak].nested("keycloak") zip
-        deriveConfig[Metrics].nested("metrics")
-    )
-      .to[AppConfig]
-      .mapKey(toKebabCase)
-  }
+      deriveConfig[BasicAuth].nested("basicAuth")
+  )
+    .to[AppConfig]
+    .mapKey(toKebabCase)
 
   def get: IO[Config.Error, AppConfig] = ZIO.config[AppConfig](configDescriptor)
 
   def get[A](f: AppConfig => A): IO[Config.Error, A] = get.map(f)
 
-  val layer: Layer[Config.Error, AppConfig] = ZLayer.fromZIO {
+  val live: Layer[Config.Error, AppConfig] = ZLayer.fromZIO {
     ZIO.config[AppConfig](configDescriptor)
   }
 }

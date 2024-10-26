@@ -18,5 +18,5 @@ package object cvpservice {
       with ProfileRepository
       with PrometheusPublisher
 
-  type CVPServiceEnv = Scope with Client with ServiceEnv
+  type CVPServiceEnv = ServiceEnv with Scope
 }

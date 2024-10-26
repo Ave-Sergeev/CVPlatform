@@ -8,7 +8,9 @@ import zio.{Task, URLayer, ZLayer}
 import java.util.UUID
 import javax.sql.DataSource
 
-case class ProfileRepositoryLive(ds: DataSource) extends ProfileRepository {
+case class ProfileRepositoryLive(
+    ds: DataSource
+) extends ProfileRepository {
 
   private val ctx = new PostgresZioJdbcContext(SnakeCase)
 

@@ -8,7 +8,7 @@ import storage.DB
 import storage.liquibase.LiquibaseService
 import storage.postgres.ProfileRepository
 import storage.redis._
-import zio.http.{Client, ZClient}
+import zio.http.Client
 import zio.metrics.connectors.prometheus
 import zio.{Scope, TaskLayer}
 
@@ -16,21 +16,26 @@ object Layers {
 
   private val runtime = Scope.default
 
-  private val base = AppConfig.layer >+> DB.live
+  private val base = AppConfig.live
 
-  private val services = Client.default >+> ZClient.default >+> redisProtobufCodecLayer
+  private val database = DB.live
 
-  private val metrics = metricsConfig >+> prometheus.publisherLayer >+> prometheus.prometheusLayer
-
-  val all: TaskLayer[CVPServiceEnv] =
-    runtime >+>
-      base >+>
-      metrics >+>
-      services >+>
+  private val services =
+    Client.default >+>
+      redisProtobufCodecLayer >+>
       HTTPServer.live >+>
       ProfileRepository.live >+>
       LiquibaseService.live >+>
       KeycloakAuthorizer.live >+>
       AuthService.live >+>
       LiquibaseService.liquibaseLayer
+
+  private val metrics = metricsConfig >+> prometheus.publisherLayer >+> prometheus.prometheusLayer
+
+  val all: TaskLayer[CVPServiceEnv] =
+    runtime >+>
+      base >+>
+      database >+>
+      services >+>
+      metrics
 }

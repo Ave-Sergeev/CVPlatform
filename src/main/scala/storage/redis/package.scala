@@ -18,11 +18,12 @@ package object redis {
       }
       .tap { redis: ZEnvironment[Redis] =>
         ZIO.serviceWithZIO[AppConfig] { config =>
+          val instance = redis.get.select(config.redis.databaseIndex)
           val login = config.redis.username match {
             case Some(username) if username.secretToString.nonEmpty => redis.get.auth(username.secretToString, config.redis.secret.secretToString)
             case _                                                  => redis.get.auth(config.redis.secret.secretToString)
           }
-          login <* ZIO.logInfo("Successfully authorized with Redis")
+          (login <* instance) <* ZIO.logInfo("Successfully authorized with Redis")
         }
       }
 
