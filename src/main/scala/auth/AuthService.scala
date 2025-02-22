@@ -17,5 +17,6 @@ trait AuthService {
 }
 
 object AuthService {
-  val live: ZLayer[Client with Redis with KeycloakAuthorizer, Config.Error, AuthService] = AuthServiceLive.layer
+  val live: ZLayer[Client with Redis with KeycloakAuthorizer, Config.Error, AuthService] =
+    AuthServiceLive.layer
 }

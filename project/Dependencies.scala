@@ -3,26 +3,25 @@ import sbt.*
 object Dependencies {
 
   object Version {
-    val scala        = "2.13.15"
-    val zio          = "2.1.11"
-    val zioJson      = "0.7.3"
+    val scala        = "2.13.16"
+    val zio          = "2.1.15"
+    val zioJson      = "0.7.26"
     val zioHttp      = "3.0.1"
-    val zioRedis     = "1.0.0"
-    val zioSchema    = "1.5.0"
-    val zioLogging   = "2.3.2"
+    val zioRedis     = "1.0.1"
+    val zioConfig    = "4.0.3"
+    val zioSchema    = "1.6.3"
+    val zioLogging   = "2.4.0"
     val zioMetrics   = "2.3.1"
-    val netty        = "4.1.114.Final"
-    val kafka        = "2.8.2"
-    val config       = "4.0.2"
-    val quill        = "4.8.3"
-    val postgre      = "42.7.4"
+    val netty        = "4.1.118.Final"
+    val quill        = "4.8.5"
+    val postgre      = "42.7.5"
     val sl4j         = "2.0.16"
-    val ulid         = "24.9.3"
-    val grpc         = "1.68.0"
-    val logback      = "1.5.11"
+    val ulid         = "2025.1.6"
+    val grpc         = "1.70.0"
+    val logback      = "1.5.16"
     val scalaLogging = "3.9.5"
     val liquibase    = "3.4.2"
-    val silencer     = "1.7.19"
+    val silencer     = "1.17.13"
   }
 
   object ZIO {
@@ -39,15 +38,15 @@ object Dependencies {
   }
 
   object HTTP {
-    lazy val zhttp     = "dev.zio" %% "zio-http"  % Version.zioHttp
+    lazy val zioHttp   = "dev.zio" %% "zio-http"  % Version.zioHttp
     lazy val httpNetty = "io.netty" % "netty-all" % Version.netty
   }
 
   object CONFIG {
-    lazy val core     = "dev.zio" %% "zio-config"          % Version.config
-    lazy val refined  = "dev.zio" %% "zio-config-refined"  % Version.config
-    lazy val magnolia = "dev.zio" %% "zio-config-magnolia" % Version.config
-    lazy val typesafe = "dev.zio" %% "zio-config-typesafe" % Version.config
+    lazy val core     = "dev.zio" %% "zio-config"          % Version.zioConfig
+    lazy val refined  = "dev.zio" %% "zio-config-refined"  % Version.zioConfig
+    lazy val magnolia = "dev.zio" %% "zio-config-magnolia" % Version.zioConfig
+    lazy val typesafe = "dev.zio" %% "zio-config-typesafe" % Version.zioConfig
   }
 
   object STORAGE {
@@ -57,11 +56,11 @@ object Dependencies {
   }
 
   object LOGS {
-    lazy val sl4j           = "org.slf4j"                   % "slf4j-api"          % Version.sl4j
-    lazy val logback        = "ch.qos.logback"              % "logback-classic"    % Version.logback
-    lazy val zioLogging     = "dev.zio"                    %% "zio-logging"        % Version.zioLogging
-    lazy val scalaLogging   = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
-    lazy val zioLoggingLf4j = "dev.zio"                    %% "zio-logging-slf4j2" % Version.zioLogging
+    lazy val sl4j             = "org.slf4j"                   % "slf4j-api"          % Version.sl4j
+    lazy val logback          = "ch.qos.logback"              % "logback-classic"    % Version.logback
+    lazy val zioLogging       = "dev.zio"                    %% "zio-logging"        % Version.zioLogging
+    lazy val scalaLogging     = "com.typesafe.scala-logging" %% "scala-logging"      % Version.scalaLogging
+    lazy val zioLoggingSlf4j2 = "dev.zio"                    %% "zio-logging-slf4j2" % Version.zioLogging
   }
 
   object GRPC {
@@ -104,8 +103,8 @@ object Dependencies {
     LOGS.logback,
     LOGS.zioLogging,
     LOGS.scalaLogging,
-    LOGS.zioLoggingLf4j,
-    HTTP.zhttp,
+    LOGS.zioLoggingSlf4j2,
+    HTTP.zioHttp,
     HTTP.httpNetty,
     UTILS.ulid,
     CONFIG.core,

@@ -9,14 +9,14 @@ import java.util.UUID
 import javax.sql.DataSource
 
 case class ProfileRepositoryLive(
-    ds: DataSource
+    dataSource: DataSource
 ) extends ProfileRepository {
 
   private val ctx = new PostgresZioJdbcContext(SnakeCase)
 
   import ctx._
 
-  private val dsLayer = ZLayer.succeed(ds)
+  private val dsLayer = ZLayer.succeed(dataSource)
 
   private val profileSchema = quote {
     query[Profile]
@@ -66,6 +66,7 @@ case class ProfileRepositoryLive(
 }
 
 object ProfileRepositoryLive {
+
   def layer: URLayer[DataSource, ProfileRepositoryLive] =
     ZLayer.fromFunction[DataSource => ProfileRepositoryLive](ProfileRepositoryLive(_))
 }

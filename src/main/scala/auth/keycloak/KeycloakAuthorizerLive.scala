@@ -18,7 +18,7 @@ case class KeycloakAuthorizerLive(
     httpClient: Client
 ) extends KeycloakAuthorizer {
 
-  def userInfo(token: String): RIO[Scope, User] = {
+  override def userInfo(token: String): RIO[Scope, User] = {
     val pathSuffix = s"/realms/${config.realm}/protocol/openid-connect/userinfo"
     val sendUserInfo = httpClient
       .uri(URI.create(config.host))
@@ -29,7 +29,7 @@ case class KeycloakAuthorizerLive(
       .map(info => User(info.username))
   }
 
-  def introspectToken(token: String): RIO[Scope, IntrospectResponse] = {
+  override def introspectToken(token: String): RIO[Scope, IntrospectResponse] = {
     val pathSuffix = s"/realms/${config.realm}/protocol/openid-connect/token/introspect"
     val body = Body.fromURLEncodedForm(
       Form.fromStrings(
@@ -51,9 +51,8 @@ case class KeycloakAuthorizerLive(
       decode: String => Task[A]
   ): RIO[R, A] =
     for {
-      response <- effect
-        .mapError(err => AuthException(s"Cannot authorize user in KeyCloak: $err"))
-      _ <- ZIO.fail(AuthException("Cannot authorize user in KeyCloak")).when(response.status.isError)
+      response <- effect.mapError(err => AuthException(s"Cannot authorize user in KeyCloak: $err"))
+      _        <- ZIO.fail(AuthException("Cannot authorize user in KeyCloak")).when(response.status.isError)
       info <- response.body.asString
         .mapError(err => BodyParsingException(s"Cannot decode body: $err"))
         .flatMap(body => decode(body))
@@ -61,7 +60,8 @@ case class KeycloakAuthorizerLive(
 }
 
 object KeycloakAuthorizerLive {
-  lazy val layer: ZLayer[Client with Redis, Config.Error, KeycloakAuthorizer] = ZLayer {
+
+  val layer: ZLayer[Client with Redis, Config.Error, KeycloakAuthorizer] = ZLayer {
     for {
       config     <- AppConfig.get(_.keycloak)
       redis      <- ZIO.service[Redis]

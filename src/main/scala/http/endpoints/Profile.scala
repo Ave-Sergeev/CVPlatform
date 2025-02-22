@@ -11,7 +11,7 @@ import java.util.UUID
 
 object Profile {
 
-  def routes: Routes[ProfileRepository with AuthService with Scope, Nothing] =
+  val routes: Routes[ProfileRepository with AuthService with Scope, Nothing] =
     Routes(
       Method.GET / "profile" -> handler { request: Request =>
         handleREST("GET /profile", request) {

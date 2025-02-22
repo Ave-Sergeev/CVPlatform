@@ -22,7 +22,7 @@ package object handlers {
       authResult <- AuthService
         .validateHeader(request)
         .logError("Unauthorized")
-      traceId <- ULID.nextULIDString
+      traceId <- ULID.newEffectULIDString
       annotations = ZIOAspect.annotated(
         "user"    -> authResult.username,
         "method"  -> path,

@@ -60,6 +60,7 @@ final case class ProfileController(
 }
 
 object ProfileController {
+
   def make: URIO[CVPServiceEnv, ProfileController] =
     for {
       environment       <- ZIO.environment[CVPServiceEnv]

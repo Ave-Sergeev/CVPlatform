@@ -11,15 +11,15 @@ object GrpcService {
 
   final def startServer: RIO[CVPServiceEnv, Server] = {
     for {
-      cfg <- AppConfig.get(_.interface)
+      config <- AppConfig.get(_.interface)
       controllers <- ZIO.attempt(
         ServiceList
           .addZIO(HealthController.make)
           .addZIO(ProfileController.make)
       )
       build = NettyServerBuilder
-        .forPort(cfg.grpcPort)
-        .maxInboundMessageSize(cfg.maxInboundMessage.toInt)
+        .forPort(config.grpcPort)
+        .maxInboundMessageSize(config.maxInboundMessage.toInt)
       server <- ScopedServer.fromServiceList(build, controllers)
     } yield server
   } *> ZIO.never

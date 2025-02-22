@@ -42,12 +42,12 @@ object LiquibaseServiceLive {
 
   private def make(config: LiquibaseConfig): RIO[Scope with DataSource, Liquibase] =
     for {
-      ds                  <- ZIO.environment[DataSource].map(_.get)
+      dataSource          <- ZIO.environment[DataSource].map(_.get)
       fileAccessor        <- ZIO.from(new FileSystemResourceAccessor())
       classLoader         <- ZIO.from(classOf[LiquibaseService].getClassLoader)
       classLoaderAccessor <- ZIO.from(new ClassLoaderResourceAccessor(classLoader))
       fileOpener          <- ZIO.from(new CompositeResourceAccessor(fileAccessor, classLoaderAccessor))
-      jdbcConn            <- ZIO.acquireRelease(ZIO.from(new JdbcConnection(ds.getConnection)))(c => ZIO.succeed(c.close()))
-      liquibase           <- ZIO.from(new Liquibase(config.changeLog, fileOpener, jdbcConn))
+      jdbcConnection      <- ZIO.acquireRelease(ZIO.from(new JdbcConnection(dataSource.getConnection)))(c => ZIO.succeed(c.close()))
+      liquibase           <- ZIO.from(new Liquibase(config.changeLog, fileOpener, jdbcConnection))
     } yield liquibase
 }

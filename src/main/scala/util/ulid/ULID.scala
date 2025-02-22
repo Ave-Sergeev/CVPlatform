@@ -10,17 +10,21 @@ package object ULID {
 
   private val tz = TimeZone.getDefault.toZoneId
 
-  def nextULID: UIO[ULID] = ZIO.succeed(ULID.newULID)
+  def newULID: ULID = ULID.newULID
 
-  def nextULIDString: UIO[String] = ZIO.succeed(newULIDString)
+  def newUUID: UUID = newULID.toUUID
 
   def newULIDString: String = ULID.newULIDString
 
-  def newULID: ULID = ULID.newULID
+  def newUUIDString: String = newUUID.toString
 
-  def nextUUID: UIO[UUID] = ZIO.succeed(ULID.newULID.toUUID)
+  def newEffectULID: UIO[ULID] = ZIO.succeed(newULID)
 
-  def nextUUIDString: UIO[String] = ZIO.succeed(ULID.newULID.toUUID.toString)
+  def newEffectUUID: UIO[UUID] = ZIO.succeed(newUUID)
+
+  def newEffectULIDString: UIO[String] = ZIO.succeed(newULIDString)
+
+  def newEffectUUIDString: UIO[String] = ZIO.succeed(newUUIDString)
 
   def getTimeFromULID(ulid: ULID): LocalDateTime = LocalDateTime.ofInstant(ulid.toInstant, tz)
 

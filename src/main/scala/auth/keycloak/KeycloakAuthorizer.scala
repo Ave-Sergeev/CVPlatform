@@ -15,5 +15,6 @@ trait KeycloakAuthorizer {
 }
 
 object KeycloakAuthorizer {
-  val live: ZLayer[Client with Redis, Config.Error, KeycloakAuthorizer] = KeycloakAuthorizerLive.layer
+  val live: ZLayer[Client with Redis, Config.Error, KeycloakAuthorizer] =
+    KeycloakAuthorizerLive.layer
 }

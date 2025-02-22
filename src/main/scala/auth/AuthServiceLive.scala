@@ -2,7 +2,7 @@ package auth
 
 import auth.keycloak.KeycloakAuthorizer
 import auth.models._
-import config.AppConfig
+import config.{AppConfig, BasicAuth}
 import exception.Exceptions._
 import io.grpc.Metadata
 import scalapb.zio_grpc.RequestContext
@@ -17,12 +17,10 @@ import java.util.Base64
 
 case class AuthServiceLive(
     redis: Redis,
-    config: AppConfig,
+    config: BasicAuth,
     keycloakAuthorizer: KeycloakAuthorizer
 ) extends AuthService {
-
   private val decoder = Base64.getUrlDecoder
-
   private val authKey = Metadata.Key.of(
     "Authorization",
     Metadata.ASCII_STRING_MARSHALLER
@@ -53,8 +51,8 @@ case class AuthServiceLive(
     }
 
   private def validateBasicAuth(credentials: BasicAuthData): UIO[AuthResult] = {
-    val secretLogin    = config.basicAuth.login.secretToString
-    val secretPassword = config.basicAuth.password.secretToString
+    val secretLogin    = config.login.secretToString
+    val secretPassword = config.password.secretToString
 
     if (secretLogin.contains(credentials.username) && secretPassword.contains(credentials.password))
       ZIO.succeed(ValidAuthResult(credentials.username, List("default")))
@@ -99,9 +97,10 @@ case class AuthServiceLive(
 }
 
 object AuthServiceLive {
-  lazy val layer: ZLayer[KeycloakAuthorizer with Redis, Config.Error, AuthService] = ZLayer {
+
+  val layer: ZLayer[KeycloakAuthorizer with Redis, Config.Error, AuthService] = ZLayer {
     for {
-      config             <- AppConfig.get
+      config             <- AppConfig.get(_.basicAuth)
       redis              <- ZIO.service[Redis]
       keycloakAuthorizer <- ZIO.service[KeycloakAuthorizer]
     } yield AuthServiceLive(redis, config, keycloakAuthorizer)

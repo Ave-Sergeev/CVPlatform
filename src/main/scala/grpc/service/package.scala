@@ -19,7 +19,7 @@ package object service {
           .validateContext(context)
           .mapError(err => new StatusException(Status.UNAUTHENTICATED.withDescription(err.getMessage)))
           .logError("Unauthorized")
-        traceId <- ULID.nextULIDString
+        traceId <- ULID.newEffectULIDString
         methodName = context.methodDescriptor.getBareMethodName
         annotations = ZIOAspect.annotated(
           "user"    -> authResult.username,

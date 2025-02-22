@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ScalaCompilerConfiguration">
-    <profile name="sbt 1" modules="certverifyplatform_194,certverifyplatform_5425,cvplatform_3143" />
+    <profile name="sbt 1" modules="certverifyplatform_194,certverifyplatform_5425,cvplatform_3143,cvplatform_5216" />
     <profile name="sbt 2" modules="CertVerificationPlatform,CertVerifyPlatform">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
@@ -42,7 +42,7 @@
         <parameter value="-Ycache-macro-class-loader:last-modified" />
       </parameters>
     </profile>
-    <profile name="sbt 3" modules="CVPlatform,WorkProject.CertVerifyPlatform,andreilunev.WorkProject.CertVerifyPlatform">
+    <profile name="sbt 3" modules="WorkProject.CertVerifyPlatform,andreilunev.WorkProject.CertVerifyPlatform">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />
@@ -84,7 +84,7 @@
         <plugin path="$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.11/4.7.8/semanticdb-scalac_2.13.11-4.7.8.jar" />
       </plugins>
     </profile>
-    <profile name="sbt 4" modules="WorkProject.CVPlatform">
+    <profile name="sbt 4" modules="CVPlatform,WorkProject.CVPlatform">
       <option name="implicitConversions" value="true" />
       <option name="higherKinds" value="true" />
       <option name="existentials" value="true" />
@@ -123,7 +123,7 @@
         <parameter value="-Ycache-macro-class-loader:last-modified" />
       </parameters>
       <plugins>
-        <plugin path="$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.15/4.9.3/semanticdb-scalac_2.13.15-4.9.3.jar" />
+        <plugin path="$USER_HOME$/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/org/scalameta/semanticdb-scalac_2.13.16/4.13.1.1/semanticdb-scalac_2.13.16-4.13.1.1.jar" />
       </plugins>
     </profile>
   </component>
